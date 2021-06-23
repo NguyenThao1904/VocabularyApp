@@ -139,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         ArrayList<String> favWordList = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT av.word as word, av.description as description FROM av, fav WHERE fav.id_av = av.id", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT word, description FROM av WHERE fav = TRUE", null);
         while (cursor.moveToNext()){
             Log.d(TAG, "getAllFavWord: "+ cursor.getString(cursor.getColumnIndex("word")));
             Log.d(TAG, "getAllFavWord1: ");
