@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VocabularyApp</string>
+    <string name="text_score">Score: %d</string>
 </resources>
