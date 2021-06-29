@@ -36,26 +36,15 @@
 - output: **null**
 - Descrip: Add id of word that is checked favorite to table fav
 ```
-### DatabaseHelper
-    // to get list of words saved in fav table
-    public ArrayList<String> getFavList(){
-        SQLiteDatabase sqd = this.getReadableDatabase();
-        ArrayList<String> favList = new ArrayList<>();
-        Cursor cursor = sqd.rawQuery("SELECT * FROM fav",null);
-        while (cursor.moveToNext()){
-            favList.add(cursor.getString(cursor.getColumnIndex("word")));
-        }
-        return favList;
-    }
-
-    // to save word in fav table
-    public boolean SaveFavWord(String word,String mean){
+### DatabaseHelper 
+     // to save word, turn fav row from false to true
+    public boolean SaveFavWord(String word){
         SQLiteDatabase sqd = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("word",word);
-        cv.put("mean",mean);
+        cv.put("fav","TRUE");
         // word && description is column name in fav table
-        long res = sqd.insert("fav",null,cv);
+        long res = sqd.update("av",cv,"word = ?", new String[]{word});
+        //long res = sqd.update("av",cv,"word = " + word,null);
         if(res == -1) return false;
         sqd.close();
         return true;
@@ -76,13 +65,15 @@
                     // delete word from table
                     mDatabaseHelper.deleteFav(word);
                     Toast.makeText(AnswerAct.this, "Word deleted", Toast.LENGTH_SHORT).show();
+                    //icon dùng khi chưa lưu từ đó
                     btnSave.setImageResource(R.drawable.ic_action_bookmark);
                     wordSaved = false;
                 } else {
-                    boolean saved = mDatabaseHelper.SaveFavWord(word, ans);
+                    boolean saved = mDatabaseHelper.SaveFavWord(word);
                     if (saved) {
                         Toast.makeText(AnswerAct.this, "Word saved", Toast.LENGTH_SHORT).show();
                         // to change the fav button img
+                        //icon dùng khi lưu từ đó
                         btnSave.setImageResource(R.drawable.ic_action_marked);
                         wordSaved = true;
                     } else
@@ -90,26 +81,12 @@
                 }
             }
         });
-        checkFavWord();
         setData();
-
+    
     public void setData(){
         if(!ans.isEmpty()){
             mWord.setText(word);
             mAns.setText(ans);
-        }
-    }
-#### Ngoài onCreate()
-    public boolean checkFavWord() {
-        ArrayList<String> lst = mDatabaseHelper.getFavList();
-        if (lst.contains(word)) {
-            // it mean word is already in favlist
-            // change in bookmark btn
-            btnSave.setImageResource(R.drawable.ic_action_marked);
-            return true;
-        } else {
-            btnSave.setImageResource(R.drawable.ic_action_bookmark);
-            return false;
         }
     }
 ```
