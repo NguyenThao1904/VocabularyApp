@@ -35,8 +35,9 @@
 - input: **int id**
 - output: **null**
 - Descrip: Add id of word that is checked favorite to table fav
-```
+
 ### DatabaseHelper 
+```
      // to save word, turn fav row from false to true
     public boolean SaveFavWord(String word){
         SQLiteDatabase sqd = this.getWritableDatabase();
@@ -54,8 +55,9 @@
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.execSQL("DELETE FROM fav WHERE word = '"+word+"'");
     }
-### Answer
+```
 #### onCreate()
+```
     btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,14 +83,6 @@
                 }
             }
         });
-        setData();
-    
-    public void setData(){
-        if(!ans.isEmpty()){
-            mWord.setText(word);
-            mAns.setText(ans);
-        }
-    }
 ```
 # 2. Word favorite
 #### a. Get word favorite
