@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_score_end"
+        android:gravity="center"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="40dp"
+        android:text="@string/text_score_end" />
+    <TextView
+        android:id="@+id/text_high_score"
+        android:gravity="center"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:text="@string/text_high_score" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_play_again"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bgbtn"
+        android:textSize="28sp"
+        android:text="Play Again"
+        android:textColor="@color/colorPurple"
+        android:textAllCaps="false"
+        android:layout_marginTop="50dp">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <TextView
+        android:id="@+id/text_back_to_home"
+        android:gravity="center"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="22sp"
+        android:layout_marginTop="30dp"
+        android:text="Back to home"
+        android:textColor="#8AFFFFFF"/>
+
+</LinearLayout>

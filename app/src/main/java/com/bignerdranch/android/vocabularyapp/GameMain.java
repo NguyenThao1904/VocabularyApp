@@ -1,5 +1,6 @@
 package com.bignerdranch.android.vocabularyapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
+
+import java.io.IOException;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,6 +31,8 @@ public class GameMain extends AppCompatActivity {
     private static final String KEY_EDIT_TEXT = "key_edit_text";
     private static final String KEY_KEYS = "key_keys";
     private static final String KEY_CURRENT_ANSWER = "current_answer";
+    public static final String EXTRA_SCORE = "extra_score";
+    public static final String EXTRA_CONGRATULATION = "start_activity_congratulation";
 
     private int presCounter = 0;
     private int maxPresCounter;
@@ -34,9 +40,11 @@ public class GameMain extends AppCompatActivity {
     private int numToGameOver = 0;
     private int score = 0;
     private boolean isReloadBrick;
+    long backPressedTime;
 
+    private DatabaseHelper mDatabaseHelper ;
     private ArrayList<String> keys = new ArrayList<String>();
-    private ArrayList<String> textAnswers;
+    private ArrayList<Word> textAnswers;
     private String textAnswer;
     private TextView mTextQuestion, mTextScreen, mScore;
     private ProgressBar mProgressLevel;
@@ -47,11 +55,10 @@ public class GameMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main);
+        mDatabaseHelper = new DatabaseHelper(this);
 
-        textAnswers = new ArrayList<String>();
-        textAnswers.add("MORNING");
-        textAnswers.add("BIRD");
-        textAnswers.add("AFTERNOON");
+        textAnswers = new ArrayList<Word>();
+        textAnswers = mDatabaseHelper.getAllFavWord();
 
         mProgressLevel = (ProgressBar) findViewById(R.id.progressBar_level);
         mProgressLevel.setProgress(0);
@@ -63,6 +70,7 @@ public class GameMain extends AppCompatActivity {
             currentAnswer = savedInstanceState.getInt(KEY_CURRENT_ANSWER);
             score = savedInstanceState.getInt(KEY_SCORE);
         }
+        mDatabaseHelper.updateFav();
 
         mScore = (TextView) findViewById(R.id.text_score);
         Log.d("TAG", "score: "+ score);
@@ -75,14 +83,24 @@ public class GameMain extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if(backPressedTime + 2000 > System.currentTimeMillis()){
+            saveHighScore();
+        }else {
+            Toast.makeText(this, "Press back again to finish", Toast.LENGTH_SHORT).show();
+        }
+        backPressedTime = System.currentTimeMillis();
+    }
+
     private void showGame(Bundle savedInstanceState){
-        textAnswer = textAnswers.get(currentAnswer);
+        textAnswer = textAnswers.get(currentAnswer).getWord();
         Log.d("TAG", "showGame: "+ currentAnswer);
 
         if(savedInstanceState != null){
             //neu khong phai reload lai chu thi nhan lai gia tri
             if(!isReloadBrick){
-                maxPresCounter = textAnswers.get(currentAnswer).length();
+                maxPresCounter = textAnswers.get(currentAnswer).getWord().length();
                 keys = savedInstanceState.getStringArrayList(KEY_KEYS);
             }else{
                 maxPresCounter = textAnswer.length();
@@ -120,11 +138,13 @@ public class GameMain extends AppCompatActivity {
         textView.setTextSize(20);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/FredokaOneRegular.ttf");
+        Typeface typeface_question = Typeface.createFromAsset(getAssets(), "fonts/PatrickHand-Regular.ttf");
 
         mTextQuestion = (TextView) findViewById(R.id.text_question);
+        mTextQuestion.setText(textAnswers.get(currentAnswer).getDescription());
         mTextScreen = (TextView) findViewById(R.id.text_screen);
 
-        mTextQuestion.setTypeface(typeface);
+        mTextQuestion.setTypeface(typeface_question);
         mTextScreen.setTypeface(typeface);
 
         editText.setTypeface(typeface);
@@ -170,7 +190,6 @@ public class GameMain extends AppCompatActivity {
             score += 100;
             mScore.setText(getString(R.string.text_score, score));
 
-            Log.d("TAG", "score1: "+ score);
             int currentLevel = mProgressLevel.getProgress();
             if(currentLevel >= mProgressLevel.getMax()){
                 currentLevel = 0;
@@ -178,6 +197,8 @@ public class GameMain extends AppCompatActivity {
             mProgressLevel.setProgress(currentLevel + 1);
             if(currentAnswer >= textAnswers.size()){
                 Intent intent = new Intent(GameMain.this, BossActivity.class);
+                intent.putExtra(EXTRA_SCORE,score);
+                intent.putExtra(EXTRA_CONGRATULATION, true);
                 startActivity(intent);
             }else{
                 showGame(savedInstanceState);
@@ -190,6 +211,10 @@ public class GameMain extends AppCompatActivity {
             showGame(savedInstanceState);
             if(numToGameOver == 2){
                 Toast.makeText(GameMain.this, "Game over",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GameMain.this, BossActivity.class);
+                intent.putExtra(EXTRA_CONGRATULATION, false);
+                intent.putExtra(EXTRA_SCORE,score);
+                startActivity(intent);
             }
         }
         keys = shuffleArray(keys);
@@ -226,6 +251,13 @@ public class GameMain extends AppCompatActivity {
         return  keys;
     }
 
+    private void saveHighScore() {
+        Intent resultIntent= new Intent();
+        resultIntent.putExtra(EXTRA_SCORE, score);
+        setResult(RESULT_OK, resultIntent);
+        finish();
+    }
+    
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

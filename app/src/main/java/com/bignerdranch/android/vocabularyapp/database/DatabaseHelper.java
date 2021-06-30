@@ -1,11 +1,14 @@
 package com.bignerdranch.android.vocabularyapp.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.bignerdranch.android.vocabularyapp.Word;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,6 +18,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+import static java.lang.Boolean.TRUE;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -24,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String WORD = "word";
     private static String DB_PATH = "";
     private final Context mContext;
-    private SQLiteDatabase mDataBase;
+    private static SQLiteDatabase mDataBase;
 
     public DatabaseHelper(Context context){
         super(context,DB_NAME, null, VERSION );
@@ -120,31 +124,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Display word by html column
-    public String displayWord(String word) {
+    public Word displayWord(String word) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
         Log.d(TAG, "getAns: " + word);
-        String ans = null;
-        String sql = "SELECT html FROM " + AV_TABLE + " WHERE word = '" + word + "'";
+        Word ans = null;
+        String sql = "SELECT * FROM " + AV_TABLE + " WHERE word = '" + word + "'";
         Log.d(TAG, "getAns: " + sql);
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-            ans = cursor.getString(cursor.getColumnIndex("html"));
+            ans.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            ans.setHtml(cursor.getString(cursor.getColumnIndex("html")));
+            ans.setWord(cursor.getString(cursor.getColumnIndex("word")));
+            ans.setPronounce(cursor.getString(cursor.getColumnIndex("pronounce")));
+            ans.setFav(cursor.getString(cursor.getColumnIndex("fav")));
+            ans.setDescription(cursor.getString(cursor.getColumnIndex("description")));
         }
         return ans;
     }
 
     //Get all the whole favorite word
-    public ArrayList<String> getAllFavWord(){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    public ArrayList<Word> getAllFavWord(){
+        ArrayList<Word> favWordList = new ArrayList<>();
+        mDataBase = this.getReadableDatabase();
+        try {
+            Cursor cursor = mDataBase.rawQuery("SELECT * FROM av WHERE fav = 'TRUE'", null);
+            if (cursor.moveToFirst()){
+                do {
+                    Word word = new Word();
+                    word.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                    word.setWord(cursor.getString(cursor.getColumnIndex("word")));
+                    word.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+                    word.setHtml(cursor.getString(cursor.getColumnIndex("html")));
+                    word.setPronounce(cursor.getString(cursor.getColumnIndex("pronounce")));
+                    word.setFav(cursor.getString(cursor.getColumnIndex("fav")));
+                    favWordList.add(word);
+                }while (cursor.moveToNext());
+            }
+            cursor.close();
+        }catch (Exception e){        }
 
-        ArrayList<String> favWordList = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT word, description FROM av WHERE fav = TRUE", null);
-        while (cursor.moveToNext()){
-            Log.d(TAG, "getAllFavWord: "+ cursor.getString(cursor.getColumnIndex("word")));
-            Log.d(TAG, "getAllFavWord1: ");
-            favWordList.add(cursor.getString(cursor.getColumnIndex("word")));
-        }
         return favWordList;
+    }
+
+    //biến id là id của word được chọn yêu thích
+    public void updateFav(boolean checked, int id){
+        mDataBase = this.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        if(checked){
+            //từ đang ở trạng thái được yêu thích
+            //khi click vào view phải chuyển thành ko yêu thích là false
+            contentValues.put("fav", "FALSE");
+        }else{
+            contentValues.put("fav", "TRUE");
+        }
+        mDataBase.update("av", contentValues, "id = " + id,
+                null);
     }
 }

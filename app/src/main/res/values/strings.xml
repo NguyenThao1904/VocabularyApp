@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">VocabularyApp</string>
     <string name="text_score">Score: %d</string>
+    <string name="text_question_description">%s</string>
+    <string name="text_score_end">Your score: %d</string>
+    <string name="text_high_score">High score: %d</string>
 </resources>

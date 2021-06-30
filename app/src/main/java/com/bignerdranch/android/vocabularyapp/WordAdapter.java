@@ -12,12 +12,12 @@ import java.util.ArrayList;
 /**
  * Created by Parsania Hardik on 26-Apr-17.
  */
-public class CustomAdapter extends BaseAdapter {
+public class WordAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Word> userModelArrayList;
 
-    public CustomAdapter(Context context, ArrayList<Word> userModelArrayList) {
+    public WordAdapter(Context context, ArrayList<Word> userModelArrayList) {
 
         this.context = context;
         this.userModelArrayList = userModelArrayList;

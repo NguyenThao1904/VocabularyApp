@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VocabularyApp">
-        <activity android:name=".GameMain"></activity>
-        <activity android:name=".BossActivity"></activity>
+        <activity android:name=".StartGameScreenActivity"></activity>
+        <activity android:name=".GameMain" />
+        <activity android:name=".BossActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

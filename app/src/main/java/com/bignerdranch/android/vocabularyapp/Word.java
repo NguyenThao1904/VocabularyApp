@@ -2,8 +2,8 @@ package com.bignerdranch.android.vocabularyapp;
 
 public class Word {
     private int id;
-    private String word, html, description, pronounce;
-    private boolean fav;
+    private String word, html, description, pronounce, fav;
+
 
     public int getId() {
         return id;
@@ -25,7 +25,7 @@ public class Word {
         return pronounce;
     }
 
-    public boolean isFav() {
+    public String isFav() {
         return fav;
     }
 
@@ -49,7 +49,7 @@ public class Word {
         this.pronounce = pronounce;
     }
 
-    public void setFav(boolean fav) {
+    public void setFav(String fav) {
         this.fav = fav;
     }
 }
