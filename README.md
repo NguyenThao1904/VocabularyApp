@@ -31,124 +31,72 @@
 - Descrip: Get html column to display
 ```
 ```
-#### c. Add favorite word
-- input: **int id**
+#### c. Add/remove favorite word
+- input: **int id, boolean checked**
 - output: **null**
 - Descrip: Add id of word that is checked favorite to table fav
+
+### DatabaseHelper 
 ```
-### DatabaseHelper
-    // to get list of words saved in fav table
-    public ArrayList<String> getFavList(){
-        SQLiteDatabase sqd = this.getReadableDatabase();
-        ArrayList<String> favList = new ArrayList<>();
-        Cursor cursor = sqd.rawQuery("SELECT * FROM fav",null);
-        while (cursor.moveToNext()){
-            favList.add(cursor.getString(cursor.getColumnIndex("word")));
+    //biến id là id của word được chọn yêu thích
+    public void updateFav(boolean checked, int id){
+        mDataBase = this.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        if(checked){
+            //từ đang ở trạng thái được yêu thích
+            //khi click vào view phải chuyển thành ko yêu thích là false
+            contentValues.put("fav", "FALSE");
+        }else{
+            contentValues.put("fav", "TRUE");
         }
-        return favList;
-    }
-
-    // to save word in fav table
-    public boolean SaveFavWord(String word,String mean){
-        SQLiteDatabase sqd = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("word",word);
-        cv.put("mean",mean);
-        // word && description is column name in fav table
-        long res = sqd.insert("fav",null,cv);
-        if(res == -1) return false;
-        sqd.close();
-        return true;
-    }
-
-    public  void deleteFav(String word){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.execSQL("DELETE FROM fav WHERE word = '"+word+"'");
-    }
-### Answer
-#### onCreate()
-    btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //to save save word in db || delete word from databse if already saved
-                // calling SaveFavword methods of DatabaseHelper  class
-                if (wordSaved) {
-                    // delete word from table
-                    mDatabaseHelper.deleteFav(word);
-                    Toast.makeText(AnswerAct.this, "Word deleted", Toast.LENGTH_SHORT).show();
-                    btnSave.setImageResource(R.drawable.ic_action_bookmark);
-                    wordSaved = false;
-                } else {
-                    boolean saved = mDatabaseHelper.SaveFavWord(word, ans);
-                    if (saved) {
-                        Toast.makeText(AnswerAct.this, "Word saved", Toast.LENGTH_SHORT).show();
-                        // to change the fav button img
-                        btnSave.setImageResource(R.drawable.ic_action_marked);
-                        wordSaved = true;
-                    } else
-                        Toast.makeText(AnswerAct.this, "Word not saved", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        checkFavWord();
-        setData();
-
-    public void setData(){
-        if(!ans.isEmpty()){
-            mWord.setText(word);
-            mAns.setText(ans);
-        }
-    }
-#### Ngoài onCreate()
-    public boolean checkFavWord() {
-        ArrayList<String> lst = mDatabaseHelper.getFavList();
-        if (lst.contains(word)) {
-            // it mean word is already in favlist
-            // change in bookmark btn
-            btnSave.setImageResource(R.drawable.ic_action_marked);
-            return true;
-        } else {
-            btnSave.setImageResource(R.drawable.ic_action_bookmark);
-            return false;
-        }
+        mDataBase.update("av", contentValues, "id = " + id,
+                null);
     }
 ```
 # 2. Word favorite
 #### a. Get word favorite
 - intput: **null**
-- output: **Arraylist<String> word**
+- output: **Arraylist<Word> word**
 - Descript: Get all word from table fav
 ```
-    public ArrayList<String> getAllFavWord(){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+    public ArrayList<Word> getAllFavWord(){
+        ArrayList<Word> favWordList = new ArrayList<>();
+        mDataBase = this.getReadableDatabase();
+        try {
+            Cursor cursor = mDataBase.rawQuery("SELECT * FROM av WHERE fav = 'TRUE'", null);
+            if (cursor.moveToFirst()){
+                do {
+                    Word word = new Word();
+                    word.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                    word.setWord(cursor.getString(cursor.getColumnIndex("word")));
+                    word.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+                    word.setHtml(cursor.getString(cursor.getColumnIndex("html")));
+                    word.setPronounce(cursor.getString(cursor.getColumnIndex("pronounce")));
+                    word.setFav(cursor.getString(cursor.getColumnIndex("fav")));
+                    favWordList.add(word);
+                }while (cursor.moveToNext());
+            }
+            cursor.close();
+        }catch (Exception e){        }
 
-        ArrayList<String> favWordList = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT av.word, av.description FROM av, fav WHERE fav.id_av = av.id", null);
-        while (cursor.moveToNext()){
-            favWordList.add(cursor.getString(cursor.getColumnIndex("word")));
-        }
         return favWordList;
     }
 ```
 
 #### b. Display a word (use 1.b)
 - input: **int word**
-- output: **a alertDialog show html**
-- Descrip: Click an item -> show a alertDialog that has html
+- output: **show html**
+- Descrip: Click an item -> show html
 ```
 ```
 # 3. Learning vocabulary
-#### a. Get word from table fav
+#### a. Get word from table practice
 - input: **int id**
 - output: **
 ```
 ```
 # 4. Game
-- input: **int id fav**
-- output: **Word word**
-- Descrip: Get word for game. Query word and description
-```
-```
+Like 2.a
 # 5. New word - New day
 - input: **int id**
 - output: **Word word**
