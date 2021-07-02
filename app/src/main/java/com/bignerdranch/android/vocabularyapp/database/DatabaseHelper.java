@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.bignerdranch.android.vocabularyapp.Question;
 import com.bignerdranch.android.vocabularyapp.Word;
 
 import java.io.File;
@@ -18,7 +19,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
-import static java.lang.Boolean.TRUE;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -180,5 +180,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         mDataBase.update("av", contentValues, "id = " + id,
                 null);
+    }
+
+    //Quiz game
+    public ArrayList<Question> getAllQuestion(int number){
+        ArrayList<Question> questionList = new ArrayList<Question>(number);
+        mDataBase= this.getReadableDatabase();
+        Cursor c= mDataBase.rawQuery("SELECT * FROM practice",null);
+
+        if (c.moveToFirst()){
+            do {
+                Question question= new Question();
+                question.setCauhoi(c.getString(c.getColumnIndex("question")));
+                question.setCaseA(c.getString(c.getColumnIndex("caseA")));
+                question.setCaseB(c.getString(c.getColumnIndex("caseB")));
+                question.setCaseC(c.getString(c.getColumnIndex("caseC")));
+                question.setTrueCase(c.getInt(c.getColumnIndex("true_case")));
+                questionList.add(question);
+            }while (c.moveToNext());
+        }
+        c.close();
+        return questionList;
     }
 }

@@ -70,7 +70,7 @@ public class GameMain extends AppCompatActivity {
             currentAnswer = savedInstanceState.getInt(KEY_CURRENT_ANSWER);
             score = savedInstanceState.getInt(KEY_SCORE);
         }
-        mDatabaseHelper.updateFav();
+        //mDatabaseHelper.updateFav();
 
         mScore = (TextView) findViewById(R.id.text_score);
         Log.d("TAG", "score: "+ score);

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.createDataBase();
-        mDatabaseHelper.updateFav();
+        //mDatabaseHelper.updateFav();
 
         mTextView = (TextView) findViewById(R.id.to_game);
         mTextView.setOnClickListener(new View.OnClickListener() {
