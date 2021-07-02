@@ -96,11 +96,11 @@ public class StartingScreenActivity extends AppCompatActivity {
     private void loadHighscore() {
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         highscore = prefs.getInt(KEY_HIGHSCORE, 0);
-        textViewHighscore.setText("Highscore: " + highscore);
+        textViewHighscore.setText(getString(R.string.text_high_score, highscore));
     }
     private void updateHighscore(int highscoreNew) {
         highscore = highscoreNew;
-        textViewHighscore.setText("Highscore: " + highscore);
+        textViewHighscore.setText(getString(R.string.text_high_score, highscore));
         //         save data in prefreferences
         //        luôn nhận được dữ liệu mới nhất được lưu,
         SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
