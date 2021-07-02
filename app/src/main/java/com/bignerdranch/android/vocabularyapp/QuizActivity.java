@@ -36,7 +36,6 @@ public class QuizActivity extends AppCompatActivity {
     private TextView textViewScore;
     private TextView textViewQuestionCount;
     private TextView textViewCountDown;
-    //private TextView textViewLevel;
     private RadioGroup rbGroup;
     private RadioButton rb1;
     private RadioButton rb2;
@@ -156,6 +155,7 @@ public class QuizActivity extends AppCompatActivity {
             startCountDown();
         } else {
             Intent intent = new Intent(this, FinishScreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra(KEY_SCORE,score);
             startActivity(intent);
         }

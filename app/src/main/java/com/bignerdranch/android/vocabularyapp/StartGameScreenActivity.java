@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StartGameScreenActivity extends AppCompatActivity {
 
@@ -30,14 +31,19 @@ public class StartGameScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //call GameMain.class
                 Intent i = new Intent(StartGameScreenActivity.this, GameMain.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(i, REQUEST_CODE_QUIZ);
             }
         });
 
         mHighScore = (TextView) findViewById(R.id.text_view_highscore);
         loadHighScore();
-
     }
+
+//    @Override
+//    public void onBackPressed() {
+//    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_QUIZ) {

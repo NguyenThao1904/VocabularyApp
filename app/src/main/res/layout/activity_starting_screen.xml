@@ -25,7 +25,7 @@
         android:layout_above="@id/button_start_quiz"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
-        android:text="Highscore : 0"
+        android:text="High Score : 0"
         android:textColor="@color/white"
         android:textSize="25sp" />
 

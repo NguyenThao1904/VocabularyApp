@@ -12,7 +12,7 @@ import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDatabaseHelper;
-    private TextView mTextView;
+    private TextView mTextView, mTextView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.createDataBase();
-        //mDatabaseHelper.updateFav();
 
         mTextView = (TextView) findViewById(R.id.to_game);
         mTextView.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(MainActivity.this, StartGameScreenActivity.class);
                     startActivity(i);
                 }
+            }
+        });
+
+        mTextView2 = (TextView) findViewById(R.id.to_learning_word);
+        mTextView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent i = new Intent(MainActivity.this, StartingScreenActivity.class);
+                    startActivity(i);
             }
         });
     }
