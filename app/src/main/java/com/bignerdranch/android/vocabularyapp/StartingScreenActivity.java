@@ -39,6 +39,7 @@ public class StartingScreenActivity extends AppCompatActivity {
         textViewHighscore = findViewById(R.id.text_view_highscore);
         spinnerLevel = findViewById(R.id.spiner_level);
 
+
         String[] difficultyLevels = {"Easy","Medium","Hard"};
         ArrayAdapter<String> adapterDifficulty = new ArrayAdapter<String>(this, R.layout.spinner_modify, difficultyLevels);
         adapterDifficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -54,7 +55,6 @@ public class StartingScreenActivity extends AppCompatActivity {
 
             }
         });
-
 
         int score = getIntent().getIntExtra(EXTRA_SCORE,0);
         if (score > highscore){
@@ -79,25 +79,11 @@ public class StartingScreenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE_QUIZ) {
-//            if (resultCode == RESULT_OK) {
-//                int score = data.getIntExtra(FinishScreenActivity.KEY_SCORE, 0);
-//                if (score > highscore) {
-//                    updateHighscore(score);
-//                }
-//            }
-//        }
-//    }
-    private void loadHighscore() {
-        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        highscore = prefs.getInt(KEY_HIGHSCORE, 0);
-        textViewHighscore.setText(getString(R.string.text_high_score, highscore));
-    }
+private void loadHighscore() {
+    SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+    highscore = prefs.getInt(KEY_HIGHSCORE, 0);
+    textViewHighscore.setText(getString(R.string.text_high_score, highscore));
+}
     private void updateHighscore(int highscoreNew) {
         highscore = highscoreNew;
         textViewHighscore.setText(getString(R.string.text_high_score, highscore));

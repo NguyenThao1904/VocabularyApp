@@ -12,9 +12,9 @@
 
         <activity android:name=".GameMain" />
         <activity android:name=".StartGameScreenActivity" />
-        <activity android:name=".StartingScreenActivity" />
+<!--        <activity android:name=".StartingScreenActivity" />-->
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".StartingScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
