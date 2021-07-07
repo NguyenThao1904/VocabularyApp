@@ -12,4 +12,5 @@
     <string name="text_question_description">%s</string>
     <string name="text_score_end">Your score: %d</string>
     <string name="text_high_score">High score: %d</string>
+    <string name="autotxt_hint">Search here</string>
 </resources>

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.Html;
 import android.util.Log;
 
 import com.bignerdranch.android.vocabularyapp.Question;
@@ -141,6 +142,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ans.setDescription(cursor.getString(cursor.getColumnIndex("description")));
         }
         return ans;
+    }
+    //Display word by html column _ p2
+    public String getDescription(String word){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String ans = null;
+        String sql = "SELECT html FROM "+ AV_TABLE + " WHERE word = '"+ word + "'";
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+        while (cursor.moveToNext()){
+            ans = cursor.getString(cursor.getColumnIndex("html"));
+        }
+        return Html.fromHtml(ans).toString();
     }
 
     //Get all the whole favorite word
