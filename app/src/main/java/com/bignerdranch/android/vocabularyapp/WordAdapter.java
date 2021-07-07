@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 /**
@@ -47,21 +50,26 @@ public class WordAdapter extends BaseAdapter {
             holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            convertView = inflater.inflate(R.layout.lv_item, null, true);
+            convertView = inflater.inflate(R.layout.activity_listview, null, true);
 
+            holder.wordeng = (TextView) convertView.findViewById(R.id.text_view_eng_word);
+            holder.descri = (TextView) convertView.findViewById(R.id.text_view_description);
 
             convertView.setTag(holder);
         }else {
             // the getTag returns the viewHolder object set as a tag to the view
-            holder = (ViewHolder)convertView.getTag();
+             holder = (ViewHolder)convertView.getTag();
         }
+
+        holder.wordeng.setText(""+userModelArrayList.get(position).getWord());
+        holder.descri.setText("Description: "+userModelArrayList.get(position).getDescription());
 
         return convertView;
     }
 
     private class ViewHolder {
 
-        protected TextView tvname, tvcountry;
+        protected TextView wordeng, descri;
     }
 
 }

@@ -1,4 +1,12 @@
 <resources>
+    <string name="hello">Hello</string>
+    <string name="search_here">Search here</string>
+    <string name="tu_yeu_thich">Từ yêu thích</string>
+    <string name="cua_so_nhanh">Cửa sổ tra nhanh</string>
+    <string name="hoc_tu_vung">Học từ vựng</string>
+    <string name="trending">Trending</string>
+    <string name="game">Game</string>
+    <string name="new_words">Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !</string>
     <string name="app_name">VocabularyApp</string>
     <string name="text_score">Score: %d</string>
     <string name="text_question_description">%s</string>

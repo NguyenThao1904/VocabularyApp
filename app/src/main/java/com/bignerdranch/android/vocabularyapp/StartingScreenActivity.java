@@ -70,6 +70,13 @@ public class StartingScreenActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(StartingScreenActivity.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
     private void startQuiz() {
 
         String level=  spinnerLevel.getSelectedItem().toString();

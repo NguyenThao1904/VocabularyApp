@@ -182,6 +182,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null);
     }
 
+    ////Get English FAVOTIRE words that like the input word
+    public ArrayList<String> getFavEngWord(String query){
+        ArrayList<String> engList= new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        //truy vấn ra những từ gần giống theo từ mình search
+        Cursor cursor = sqLiteDatabase.query(
+                AV_TABLE,
+                new String[]{WORD},
+                WORD + " LIKE ? AND fav = 'TRUE'" ,
+                new String[]{query + "%"},
+                null, null,
+                WORD
+        );
+        int index = cursor.getColumnIndex(WORD);
+        while (cursor.moveToNext()){
+            engList.add(cursor.getString(index));
+        }
+        sqLiteDatabase.close();
+        cursor.close();
+        return engList;
+    }
+
     //Quiz game
     public ArrayList<Question> getAllQuestion(int number){
         ArrayList<Question> questionList = new ArrayList<Question>(number);

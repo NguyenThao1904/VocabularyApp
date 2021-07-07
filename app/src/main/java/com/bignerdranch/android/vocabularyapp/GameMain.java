@@ -136,10 +136,10 @@ public class GameMain extends AppCompatActivity {
         textView.setBackground(this.getResources().getDrawable(R.drawable.bgpink));
         textView.setTextColor(this.getResources().getColor(R.color.colorPurple));
         textView.setGravity(Gravity.CENTER);
-        textView.setText(""+text);
+        textView.setText(text);
         textView.setClickable(true);
         textView.setFocusable(true);
-        textView.setTextSize(20);
+        textView.setTextSize(22);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/FredokaOneRegular.ttf");
         Typeface typeface_question = Typeface.createFromAsset(getAssets(), "fonts/PatrickHand-Regular.ttf");
@@ -181,6 +181,7 @@ public class GameMain extends AppCompatActivity {
         presCounter = 0;
         LinearLayout linearLayout1 = findViewById(R.id.layout_parent_1);
         LinearLayout linearLayout2 = findViewById(R.id.layout_parent_2);
+        LinearLayout linearLayout3 = findViewById(R.id.layout_parent_3);
 
         if(editText.getText().toString().equals(textAnswer)){
             Toast.makeText(GameMain.this, "Correct",Toast.LENGTH_SHORT).show();
@@ -215,6 +216,7 @@ public class GameMain extends AppCompatActivity {
         shuffleArray(keys);
         linearLayout1.removeAllViews();
         linearLayout2.removeAllViews();
+        linearLayout3.removeAllViews();
 
         showWordBrick(savedInstanceState);
     }
@@ -229,18 +231,27 @@ public class GameMain extends AppCompatActivity {
         }
     }
 
-    private void showWordBrick (Bundle savedInstanceState){
+    private void showWordBrick (Bundle savedInstanceState) {
         int i;
-        if(keys.size() < 5){
-            for (i = 0; i < keys.size(); i++){
+        if (keys.size() < 5) {
+            for (i = 0; i < keys.size(); i++) {
                 addView(findViewById(R.id.layout_parent_1), keys.get(i), savedInstanceState);
             }
-        }else{
-            for(i =0; i<5; i++){
+        } else {
+            for (i = 0; i < 5; i++) {
                 addView(findViewById(R.id.layout_parent_1), keys.get(i), savedInstanceState);
             }
-            for(i = 5; i< keys.size(); i++){
-                addView(findViewById(R.id.layout_parent_2), keys.get(i), savedInstanceState);
+            if (keys.size() < 10) {
+                for (i = 5; i < keys.size(); i++) {
+                    addView(findViewById(R.id.layout_parent_2), keys.get(i), savedInstanceState);
+                }
+            } else {
+                for (i = 5; i < 10; i++) {
+                    addView(findViewById(R.id.layout_parent_2), keys.get(i), savedInstanceState);
+                }
+                for (i = 10; i < keys.size(); i++) {
+                    addView(findViewById(R.id.layout_parent_3), keys.get(i), savedInstanceState);
+                }
             }
         }
     }
