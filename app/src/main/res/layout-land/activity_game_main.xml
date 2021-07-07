@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bggame"
+    android:background="@drawable/bg_game"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -36,7 +36,7 @@
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/bgpink"
+            android:background="@drawable/bg_game_letter"
             android:gravity="center"
             android:text="@string/text_score"
             android:textSize="12sp" />
@@ -59,7 +59,7 @@
                 android:id="@+id/text_question"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bgquestion"
+                android:background="@drawable/bg_game_question"
                 android:gravity="center"
                 android:lineSpacingExtra="2dp"
                 android:text="@string/text_question_description"
@@ -72,7 +72,7 @@
                 android:layout_height="80dp"
                 android:layout_gravity="left"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bgpurple"
+                android:background="@drawable/bg_purple"
                 android:clickable="false"
                 android:focusable="false"
                 android:gravity="center"

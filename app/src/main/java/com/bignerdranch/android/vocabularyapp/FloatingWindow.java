@@ -91,7 +91,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
 
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         imageClose = new ImageView(this);
-        imageClose.setImageResource(R.drawable.close_white);
+        imageClose.setImageResource(R.drawable.ic_close_float_white);
         imageClose.setVisibility(View.INVISIBLE);
         windowManager.addView(imageClose,imageParams);
         windowManager.addView(mFloatingView,layoutParams);
@@ -111,6 +111,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
         //AutoCompleteTextView
         // Show word's description
         mAutoCompleteTextView = mFloatingView.findViewById(R.id.auto_txt);
+
         //TextView _ show description
         mAns = mFloatingView.findViewById(R.id.txt_ans);
         mAns.setMovementMethod(new ScrollingMovementMethod());
@@ -180,11 +181,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
             }
         });
 
-
-        //mAns.setText(ans);
-
-
-        //adding an touchlistener to make drag movement of the floating widget
+        //adding an touch listener to make drag movement of the floating widget
         mFloatingView.findViewById(R.id.layout_floating).setOnTouchListener(new View.OnTouchListener() {
             int initialX, initialY;
             float initialTouchX, initialTouchY;
@@ -195,6 +192,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
 
                 switch (event.getAction())
                 {
+                    //Press on logo
                     case MotionEvent.ACTION_DOWN:
 
                         imageClose.setVisibility(View.VISIBLE);
@@ -207,6 +205,8 @@ public class FloatingWindow extends Service implements View.OnClickListener{
                         initialTouchY= event.getRawY();
 
                         return true;
+
+                        //Nhấc cái tay mày lên
                     case MotionEvent.ACTION_UP:
 
                         //when the drag is ended switching the state of the widget
@@ -222,6 +222,8 @@ public class FloatingWindow extends Service implements View.OnClickListener{
                                 stopSelf();
                         }
                         return true;
+
+                        //move logo
                     case MotionEvent.ACTION_MOVE:
                         //calculate X & Y coordinates of view
                         layoutParams.x= initialX + (int)(initialTouchX-event.getRawX());
@@ -231,9 +233,9 @@ public class FloatingWindow extends Service implements View.OnClickListener{
                         windowManager.updateViewLayout(mFloatingView,layoutParams);
 
                         if (layoutParams.y > (height * 0.6)){
-                            imageClose.setImageResource(R.drawable.close_white);
+                            imageClose.setImageResource(R.drawable.ic_close_float_red);
                         }else{
-                            imageClose.setImageResource(R.drawable.close_white);
+                            imageClose.setImageResource(R.drawable.ic_close_float_white);
                         }
                         return true;
                 }

@@ -19,7 +19,7 @@
         android:layout_height="180dp"
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
-        android:src="@drawable/icgameover"/>
+        android:src="@drawable/ic_gameover"/>
 
     <TextView
         android:id="@+id/text_question_game"

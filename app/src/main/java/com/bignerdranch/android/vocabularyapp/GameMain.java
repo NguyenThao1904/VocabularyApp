@@ -133,7 +133,7 @@ public class GameMain extends AppCompatActivity {
         final TextView textView = new TextView( (this));
 
         textView.setLayoutParams(layoutParams);
-        textView.setBackground(this.getResources().getDrawable(R.drawable.bgpink));
+        textView.setBackground(this.getResources().getDrawable(R.drawable.bg_game_letter));
         textView.setTextColor(this.getResources().getColor(R.color.colorPurple));
         textView.setGravity(Gravity.CENTER);
         textView.setText(text);

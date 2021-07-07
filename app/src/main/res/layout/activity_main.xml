@@ -11,7 +11,7 @@
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_background"
+        android:background="@drawable/bg_header"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -100,8 +100,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -112,7 +110,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
             <LinearLayout
                 android:id="@+id/layoutFavorite"
@@ -120,8 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
-                android:elevation="6dp"
                 android:background="@drawable/bg_shadow"
+                android:elevation="6dp"
                 android:orientation="vertical"
                 android:padding="10dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -136,7 +135,7 @@
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:padding="8dp"
-                    android:src="@drawable/favorite_word1" />
+                    android:src="@drawable/img_btn_fav" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -155,8 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
-                android:elevation="6dp"
                 android:background="@drawable/bg_shadow"
+                android:elevation="6dp"
                 android:orientation="vertical"
                 android:padding="10dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -171,7 +170,7 @@
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:padding="8dp"
-                    android:src="@drawable/looking_for1" />
+                    android:src="@drawable/img_btn_looking" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -190,8 +189,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:elevation="6dp"
                 android:background="@drawable/bg_shadow"
+                android:elevation="6dp"
                 android:orientation="vertical"
                 android:padding="10dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -206,7 +205,7 @@
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:padding="8dp"
-                    android:src="@drawable/learn_new_words1" />
+                    android:src="@drawable/img_btn_learn" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -225,8 +224,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
-                android:elevation="6dp"
                 android:background="@drawable/bg_shadow"
+                android:elevation="6dp"
                 android:orientation="vertical"
                 android:padding="10dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -241,7 +240,7 @@
                     android:layout_margin="8dp"
                     android:contentDescription="@string/app_name"
                     android:padding="8dp"
-                    android:src="@drawable/game1" />
+                    android:src="@drawable/img_btn_game" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -255,15 +254,16 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="342dp"
-                android:layout_height="217dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_shadow"
                 android:elevation="6dp"
                 android:padding="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/layoutGame"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/layoutFavorite"
                 app:layout_constraintTop_toBottomOf="@id/layoutLearn">
 
@@ -271,27 +271,28 @@
                     android:id="@+id/new_word_refresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/trending_background"
+                    android:background="@drawable/bg_txt_new_words"
                     android:paddingStart="8dp"
-                    android:paddingTop="4dp"
                     android:paddingEnd="8dp"
-                    android:paddingBottom="2dp"
                     android:text="@string/trending"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_favorite_border"
                     app:layout_constraintBottom_toBottomOf="@id/new_word_refresh"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/new_word_refresh"
-                    app:tint="@color/colorWhite" />
+                    app:layout_constraintVertical_bias="0.666"
+                    app:tint="@color/black" />
 
                 <ListView
                     android:id="@+id/list_new_word"
