@@ -26,7 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int VERSION =1;
     private static final String DB_NAME ="dict.db";
     private static final String AV_TABLE = "av";
-    private static final String WORD = "word";
+    public static final String WORD = "word";
+    public static final String DES = "description";
     private static String DB_PATH = "";
     private final Context mContext;
     private static SQLiteDatabase mDataBase;
@@ -235,5 +236,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         c.close();
         return questionList;
+    }
+
+    //New word - new day
+    public Cursor getNewWord() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor mCursor = sqLiteDatabase.query(AV_TABLE, new String[] {"rowid _id",WORD,DES},
+                null, null, null, null,"RANDOM()", String.valueOf(3));
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
     }
 }
