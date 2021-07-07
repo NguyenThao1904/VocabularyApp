@@ -234,6 +234,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent resultIntent= new Intent();
         resultIntent.putExtra(EXTRA_SCORE, score);
         setResult(RESULT_OK, resultIntent);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
 
     }

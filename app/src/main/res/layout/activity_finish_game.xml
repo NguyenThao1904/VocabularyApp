@@ -34,15 +34,27 @@
         android:layout_marginTop="328dp"
         android:text="Your score:"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/text_view_highscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view_score"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="22dp"
+        android:text="High Score : 0"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/text_view_cheerup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="370dp"
         android:text="Try your best next time !!!"
+        android:layout_below="@+id/text_view_highscore"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
