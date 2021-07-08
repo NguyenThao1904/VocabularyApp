@@ -12,12 +12,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +31,7 @@ import android.widget.Toast;
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDatabaseHelper;
@@ -34,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private SimpleCursorAdapter dataAdapter;
     private TextView mNewWord;
     ListView listViewNewWord;
+    private static final int REQUEST_CODE_SPEECH_INPUT = 2;
 
+    private ImageButton mButtonVoice;
+    private EditText mEdtText;
+    private TextToSpeech mTextToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +114,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         displayListView();
+
+        mEdtText = (EditText) findViewById(R.id.edit_search);
+        mButtonVoice = (ImageButton) findViewById(R.id.button_voice);
+        mButtonVoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speak();
+            }
+
+        });
+    }
+
+    private void speak() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi speak something");
+
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+        }catch (Exception e){
+            Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 
     public void getDescription(String word) {
@@ -169,9 +202,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==1){
-            if (!Settings.canDrawOverlays(MainActivity.this)){
-                Toast.makeText(this, "Permission denied by user", Toast.LENGTH_SHORT).show();
+        switch (requestCode){
+            case 1:{
+                if (requestCode==1){
+                    if (!Settings.canDrawOverlays(MainActivity.this)){
+                        Toast.makeText(this, "Permission denied by user", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            }
+            case REQUEST_CODE_SPEECH_INPUT:{
+                if(resultCode == RESULT_OK && data != null){
+                    //get text data from voice intent
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    //set to text view
+                    Log.d("", "onActivityResult: " + result.get(0));
+                    mEdtText.setText(result.get(0).toString());
+                }
+                break;
+
             }
         }
     }
