@@ -20,7 +20,7 @@
             android:layout_height="180dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:src="@drawable/iccup" />
+            android:src="@drawable/ic_cup" />
 
         <TextView
             android:id="@+id/text_question_game"

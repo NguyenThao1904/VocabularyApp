@@ -28,7 +28,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookmark);
+        setContentView(R.layout.activity_favorite);
 
         mAutoCompleteTextView1 = findViewById(R.id.searchAll);
         mAutoCompleteTextView2 = findViewById(R.id.searchFav);

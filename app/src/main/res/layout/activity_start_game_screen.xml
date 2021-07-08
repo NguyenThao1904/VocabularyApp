@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/bggame"
+    android:background="@drawable/bg_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
@@ -15,7 +15,7 @@
         android:layout_height="180dp"
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
-        android:src="@drawable/icgame"/>
+        android:src="@drawable/logo_game"/>
 
     <TextView
         android:id="@+id/text_ready_game"
@@ -43,7 +43,7 @@
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:background="@drawable/bgbtn"
+        android:background="@drawable/bg_btn_game"
         android:textSize="28sp"
         android:text="Go"
         android:textColor="@color/colorPurple"

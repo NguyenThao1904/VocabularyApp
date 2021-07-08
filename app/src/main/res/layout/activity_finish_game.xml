@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundapp">
+    android:background="@drawable/bg_learn_vocabulary">
 
     <TextView
         android:id="@+id/text_view_congra"
@@ -22,7 +22,7 @@
         android:layout_height="221dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:src="@drawable/rocket" />
+        android:src="@drawable/logo_looking" />
 
     <TextView
         android:id="@+id/text_view_score"
@@ -65,7 +65,7 @@
         android:layout_below="@+id/text_view_cheerup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:background="@drawable/bgbtn"
+        android:background="@drawable/bg_btn_game"
         android:text="HOME"
         android:textSize="30sp"/>
 

@@ -144,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return ans;
     }
+
     //Display word by html column _ p2
     public String getDescription(String word){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
