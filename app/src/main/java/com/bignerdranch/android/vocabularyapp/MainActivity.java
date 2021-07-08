@@ -1,34 +1,47 @@
 package com.bignerdranch.android.vocabularyapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
-
+import android.Manifest;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
+
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -36,24 +49,36 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDatabaseHelper;
     private LinearLayout mLayoutFavorite, mLayoutGame, mLayoutLearn, mLayoutFloatingWindow;
-    private Button btnNewWord;
     private SimpleCursorAdapter dataAdapter;
     private TextView mNewWord;
     ListView listViewNewWord;
-    private static final int REQUEST_CODE_SPEECH_INPUT = 2;
-
     private ImageButton mButtonVoice;
+    private ImageButton mBtnCamera;
     private EditText mEdtText;
     private TextToSpeech mTextToSpeech;
+    ImageView mPreviewIv;
+
+    private static final int REQUEST_CODE_SPEECH_INPUT = 2;
+    private static final int CAMERA_REQUEST_CODE = 200;
+    private static final int STORAGE_REQUEST_CODE = 400;
+    private static final int IMAGE_PICK_GALLERY_CODE = 1000;
+    private static final int IMAGE_PICK_CAMERA_CODE = 1001;
+
+    String cameraPermission[];
+    String storagePermission[];
+
+    Uri image_uri;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        // remove title
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/Jua-Regular.ttf");
+        TextView mAppName = findViewById(R.id.text_app_name);
+        mAppName.setTypeface(typeface);
 
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.createDataBase();
@@ -115,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         });
         displayListView();
 
+        //event search by voice
         mEdtText = (EditText) findViewById(R.id.edit_search);
         mButtonVoice = (ImageButton) findViewById(R.id.button_voice);
         mButtonVoice.setOnClickListener(new View.OnClickListener() {
@@ -124,8 +150,25 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        //define image view to set image when take a photo
+        mPreviewIv = findViewById(R.id.imageIv);
+        //event search by taking a photo
+        mBtnCamera = (ImageButton) findViewById(R.id.button_camera);
+        mBtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageImportDialog();
+            }
+        });
+
+        //camera permission
+        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        //storage permission
+        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
     }
 
+    //Handle voice to text
     private void speak() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -141,10 +184,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void getDescription(String word) {
         String ans = mDatabaseHelper.getDescription(word);
-//        Intent intent = new Intent(MainActivity.this, AnswerAct.class);
-//        intent.putExtra("word", word);
-//        intent.putExtra("answer", ans);
-//        startActivity(intent);
+        SQLiteCursor cursor = (SQLiteCursor) mDatabaseHelper.getNewWord();
+        Intent intent = new Intent(MainActivity.this, DisplayWordActivity.class);
+        intent.putExtra("word", word);
+        intent.putExtra("answer", ans);
+        startActivity(intent);
     }
 
     private void displayListView() {
@@ -202,6 +246,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
+                //got image from gallery now crop it
+                CropImage.activity(data.getData())
+                        .setGuidelines(CropImageView.Guidelines.ON) //enable image guidelines
+                        .start(this);
+            }
+            if (requestCode == IMAGE_PICK_CAMERA_CODE) {
+                //got image from camera now crop it
+                CropImage.activity(image_uri)
+                        .setGuidelines(CropImageView.Guidelines.ON) //enable image guidelines
+                        .start(this);
+            }
+        }
+
         switch (requestCode){
             case 1:{
                 if (requestCode==1){
@@ -216,13 +275,114 @@ public class MainActivity extends AppCompatActivity {
                     //get text data from voice intent
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     //set to text view
-                    Log.d("", "onActivityResult: " + result.get(0));
                     mEdtText.setText(result.get(0).toString());
                 }
                 break;
+            }
+            //get cropped image
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:{
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    Uri resultUri = result.getUri(); //get image uri
+                    // set image to image view
+                    mPreviewIv.setImageURI(resultUri);
 
+                    //get drawable bitmap for text recognition
+                    BitmapDrawable bitmapDrawable= (BitmapDrawable) mPreviewIv.getDrawable();
+                    Bitmap bitmap = bitmapDrawable.getBitmap();
+
+                    TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+                    if (!textRecognizer.isOperational()) {
+                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                        SparseArray<TextBlock> items = textRecognizer.detect(frame);
+                        StringBuilder sb = new StringBuilder();
+                        //get text from sb until there is no text
+                        for (int i = 0; i < items.size(); i++) {
+                            TextBlock myItem = items.valueAt(i);
+                            sb.append(myItem.getValue());
+                            sb.append("\n");
+                        }
+                        //set text to edit text
+                        mEdtText.setText(sb.toString());
+                    }
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    //if there any error show it
+                    Exception error = result.getError();
+                    Toast.makeText(this, "" + error, Toast.LENGTH_SHORT).show();
+                }
             }
         }
+    }
+
+    //Show dialog to select camera or gallery
+    private void showImageImportDialog() {
+        //items to display in dialog
+        String[] items = {"Camera", "Gallery"};
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        //set title
+        dialog.setTitle("Select image");
+        dialog.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    //camera option click
+                    if(!checkCameraPermission()){
+                        //camera permission not allowed, request it
+                        requestCameraPermission();
+                    }else{
+                        //permission allowed, take picture
+                        pickCamera();
+                    }
+                }
+
+                if (which == 1) {
+                    //gallery option click
+                    if(!checkStoragePermission()){
+                        //storage permission not allowed, request it
+                        requestStoragePermission();
+                    }else{
+                        //permission allowed, take picture
+                        pickGallery();
+                    }
+                }
+            }
+        });
+        dialog.create().show();
+    }
+
+    private void pickGallery() {
+        //intent to take image from gallery
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
+    }
+
+    private void pickCamera() {
+        //intent to take image from camera, it will also be save to get high quality image
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "NewPic"); //title of picture
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Image To Text"); //description
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+        startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
+    }
+
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this, storagePermission, STORAGE_REQUEST_CODE);
+    }
+
+    private boolean checkStoragePermission() {
+        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        return result;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, cameraPermission, CAMERA_REQUEST_CODE);
     }
     //FULL MÀN HÌNH
     @Override
@@ -258,5 +418,15 @@ public class MainActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+    private boolean checkCameraPermission() {
+        //Check camera permission and return the result
+        //In order to get high quality picture we have to save image to external storage first
+        //before interesting to image view that's why storage permission will also be required
+        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+        boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
+        return result && result1;
+
     }
 }

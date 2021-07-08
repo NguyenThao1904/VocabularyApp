@@ -6,55 +6,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F1EBEB">
-    <RelativeLayout
-        android:id="@+id/toolSearch_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/act_bar"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
 
-        <AutoCompleteTextView
-            android:id="@+id/searchAll"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_header">
+
+        <LinearLayout
+            android:id="@+id/toolSearch_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:background="@android:color/white"
-            android:padding="10dp"
-            android:hint="Tra Từ Anh Việt"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:gravity="center_horizontal" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/white_rectangle_background"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView
-            android:id="@+id/star_mark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20pt"
-            android:layout_marginLeft="20pt"
-            android:layout_marginTop="40dp"
-            app:srcCompat="@drawable/ic_star"
-            tools:ignore="VectorDrawableCompat" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/search_icon_background"
+                android:contentDescription="@string/app_name"
+                android:padding="6dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/colorPrimary" />
 
-        <ImageView
-            android:id="@+id/star_mark2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20pt"
-            android:layout_marginTop="40dp"
-            app:srcCompat="@drawable/ic_star"
-            tools:ignore="VectorDrawableCompat" />
+            <AutoCompleteTextView
+                android:id="@+id/searchAll"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/search_all"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
 
-    </RelativeLayout>
+            <ImageButton
+                android:id="@+id/button_voice"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/search_icon_background"
+                android:src="@drawable/ic_voice"
+                app:tint="@color/colorPrimary" />
+
+            <ImageButton
+                android:id="@+id/button_camera"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/search_icon_background"
+                android:src="@drawable/ic_baseline_photo_camera_24"
+                app:tint="@color/colorPrimary"/>
+
+            <ImageView
+                android:id="@+id/imageIv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:id="@+id/searchBox_bar"
@@ -70,30 +86,42 @@
         app:layout_constraintTop_toBottomOf="@id/toolSearch_bar"
         android:background="@color/white">
 
-        <AutoCompleteTextView
-            android:id="@+id/searchFav"
+        <LinearLayout
+            android:id="@+id/tool_search_fav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:background="@drawable/border_search_bar"
-            android:hint="Tìm từ yêu thích"
-            android:textAlignment="center"
-            android:gravity="center_horizontal" />
+            android:background="@drawable/white_rectangle_background"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView
-            android:id="@+id/star_mark3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_star"
-            android:layout_marginStart="15pt"
-            android:layout_marginTop="18dp"
-            tools:ignore="RtlCompat,VectorDrawableCompat"/>
-        ></RelativeLayout>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="6dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/colorPrimary" />
+
+            <AutoCompleteTextView
+                android:id="@+id/searchFav"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/search_fav"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/list_bookmark"
@@ -119,50 +147,6 @@
             android:listSelector="#BBDEFB" />
     </LinearLayout>
 
-    <!--    <Button-->
-    <!--        android:id="@+id/hocTu_btn"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginBottom="10dp"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginLeft="16dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginRight="16dp"-->
-    <!--        android:background="@drawable/button_bar"-->
-    <!--        android:padding="20dp"-->
-    <!--        android:text="Học từ vựng"-->
-    <!--        android:textColor="@android:color/black"-->
-    <!--        android:textSize="18sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/game_btn"-->
-    <!--        app:layout_constraintHorizontal_bias="0.0"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/list_bookmark"-->
-    <!--        app:layout_constraintVertical_bias="0.866" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/game_btn"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginBottom="10dp"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginLeft="16dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginRight="16dp"-->
-    <!--        android:background="@drawable/button_bar"-->
-    <!--        android:padding="20dp"-->
-    <!--        android:text="GAME"-->
-    <!--        android:textColor="@android:color/black"-->
-    <!--        android:textSize="20sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="1.0"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/hocTu_btn"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/list_bookmark"-->
-    <!--        app:layout_constraintVertical_bias="0.877" />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="68dp"
@@ -171,40 +155,40 @@
         app:layout_constraintTop_toBottomOf="@id/list_bookmark">
 
         <Button
-            android:id="@+id/hocTu_btn"
+            android:id="@+id/btn_learn"
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:background="@drawable/bg_btn_fav"
-            android:text="Học từ vựng"
+            android:text="@string/btn_learn"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/game_btn"
+            app:layout_constraintEnd_toStartOf="@+id/btn_game"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_bookmark"
             app:layout_constraintVertical_bias="0.866"/>
 
         <Button
-            android:id="@+id/game_btn"
+            android:id="@+id/btn_game"
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="50dp"
             android:layout_weight="1"
             android:background="@drawable/bg_btn_fav"
-            android:text="GAME"
+            android:text="@string/btn_game"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/hocTu_btn"
+            app:layout_constraintStart_toEndOf="@+id/btn_learn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_bookmark"
             app:layout_constraintVertical_bias="0.877"/>

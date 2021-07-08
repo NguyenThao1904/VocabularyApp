@@ -7,10 +7,14 @@
     <string name="trending">Từ mới mỗi ngày</string>
     <string name="game">Game</string>
     <string name="new_words">Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !Some new words for today !You can learn quickly everyday !</string>
-    <string name="app_name">VocabularyApp</string>
+    <string name="app_name">vocabulary</string>
     <string name="text_score">Score: %d</string>
     <string name="text_question_description">%s</string>
     <string name="text_score_end">Your score: %d</string>
     <string name="text_high_score">High score: %d</string>
     <string name="autotxt_hint">Search here</string>
+    <string name="search_all">Tra từ Anh Việt</string>
+    <string name="search_fav">Tìm từ yêu thích</string>
+    <string name="btn_learn">Học từ vựng</string>
+    <string name="btn_game">Game</string>
 </resources>

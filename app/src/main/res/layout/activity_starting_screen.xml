@@ -36,7 +36,6 @@
         android:layout_centerInParent="true"
         android:background="@drawable/bg_btn_game"
         android:text="Start Quiz"
-        android:textColor="@color/white"
         android:textSize="40sp" />
 
     <TextView

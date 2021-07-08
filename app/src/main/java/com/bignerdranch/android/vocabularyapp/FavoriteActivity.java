@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -31,6 +32,8 @@ public class FavoriteActivity extends AppCompatActivity{
     private ArrayList<Word> textAnswers;
     private DatabaseHelper mDatabaseHelper;
     private WordAdapter dataAdapter;
+    private Button mBtnLearn;
+    private Button mBtnGame;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,19 +48,15 @@ public class FavoriteActivity extends AppCompatActivity{
 
         // Assign adapter to ListView
         listViewFavWord.setAdapter(dataAdapter);
-        // Hành động nhấn 1 từ vựng để ra định nghĩa từ đó
+        //display a description of word when click on it
         listViewFavWord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Object clickItemObject = parent.getAdapter().getItem(position);
-                //SQLiteCursor cursor = (SQLiteCursor) clickItemObject;
-                SQLiteCursor cursor = (SQLiteCursor) mDatabaseHelper.getNewWord();
-                String word= cursor.getString(cursor.getColumnIndex("word"));
-                getDescription(word);
+                getDescription(textAnswers.get(position).getWord());
             }
         });
 
-        ////////Search TOÀN BỘ từ vựng
+        //search the whole vocabulary
         mAutoCompleteTextView1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -84,13 +83,12 @@ public class FavoriteActivity extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String mWord = mList.get(position);
                 String mWord = (String) parent.getItemAtPosition(position);
-                //Toast.makeText(MainActivity.this, mWord , Toast.LENGTH_LONG).show();
                 getDescription(mWord);
             }
         });
 
 
-        // / ////Search từ vựng YÊU THÍCH////////////
+        //Search the favorite word
         mAutoCompleteTextView2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,24 +117,37 @@ public class FavoriteActivity extends AppCompatActivity{
                 getDescription(mWord);
             }
         });
+
+        //Call learn vocabulary act
+        mBtnLearn = findViewById(R.id.btn_learn);
+        mBtnLearn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FavoriteActivity.this, StartingScreenActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        //Call game activity
+        mBtnGame = findViewById(R.id.btn_game);
+        mBtnGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FavoriteActivity.this, StartGameScreenActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
     }
     public void getDescription(String word) {
-        String ans = mDatabaseHelper.getDescription(word);
-        SQLiteCursor cursor = (SQLiteCursor) mDatabaseHelper.getNewWord();
-        Intent intent = new Intent(FavoriteActivity.this, DisplayWordActivity.class);//hàm AnswerAct là để hiển thị html từ
+        Intent intent = new Intent(FavoriteActivity.this, DisplayWordActivity.class);
         intent.putExtra("word", word);
-        intent.putExtra("answer", ans);
+        intent.putExtra("answer", mDatabaseHelper.getDescription(word));
         startActivity(intent);
     }
-    /*public void getDisplayWord(String word) {
-        Word ans = mDatabaseHelper.displayWord(word);
-        Intent intent = new Intent(FavoriteActivity.this, DisplayWordActivity.class);//hàm AnswerAct là để hiển thị html từ
-        intent.putExtra("word", word);
-        intent.putExtra("answer", ans.getHtml());
-        startActivity(intent);
-    }*/
 
-    //FULL MÀN HÌNH
+    //Display full screen (no actionbar)
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

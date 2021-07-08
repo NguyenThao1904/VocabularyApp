@@ -15,29 +15,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textHello"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_app_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="176dp"
-            android:layout_marginLeft="176dp"
-            android:text="@string/hello"
+            android:gravity="center"
+            android:text="@string/app_name"
             android:textColor="@color/colorWhite"
-            android:textSize="25sp"
+            android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageMenu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="15dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_baseline_photo_camera_24"
-            app:layout_constraintBottom_toBottomOf="@id/textHello"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textHello"
-            android:layout_marginRight="15dp"
-            app:tint="@color/colorWhite" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +35,7 @@
             android:background="@drawable/white_rectangle_background"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageMenu">
+            app:layout_constraintTop_toBottomOf="@id/text_app_name">
 
             <ImageView
                 android:layout_width="40dp"
@@ -75,27 +61,28 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
 
-            <ImageButton
-                android:id="@+id/button_voice"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/search_icon_background"
-                android:contentDescription="@string/app_name"
-                android:padding="6dp"
-                android:src="@drawable/ic_voice"
-                app:tint="@color/colorPrimary" />
+                <ImageButton
+                    android:id="@+id/button_voice"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_icon_background"
+                    android:src="@drawable/ic_voice"
+                    app:tint="@color/colorPrimary" />
 
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/search_icon_background"
-                android:contentDescription="@string/app_name"
-                android:padding="6dp"
-                android:src="@drawable/ic_baseline_photo_camera_24"
-                app:tint="@color/colorPrimary"/>
+                <ImageButton
+                    android:id="@+id/button_camera"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/search_icon_background"
+                    android:src="@drawable/ic_baseline_photo_camera_24"
+                    app:tint="@color/colorPrimary"/>
 
+                <ImageView
+                    android:id="@+id/imageIv"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="invisible"/>
         </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,7 +132,7 @@
                     android:gravity="center"
                     android:text="@string/tu_yeu_thich"
                     android:textColor="#68A4D1"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -180,7 +167,7 @@
                     android:gravity="center"
                     android:text="@string/cua_so_nhanh"
                     android:textColor="#68A4D1"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -215,7 +202,7 @@
                     android:gravity="center"
                     android:text="@string/hoc_tu_vung"
                     android:textColor="#68A4D1"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -250,7 +237,7 @@
                     android:gravity="center"
                     android:text="@string/game"
                     android:textColor="#68A4D1"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -265,9 +252,10 @@
                 android:padding="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/layoutGame"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/layoutFavorite"
-                app:layout_constraintTop_toBottomOf="@id/layoutLearn">
+                app:layout_constraintTop_toBottomOf="@id/layoutLearn"
+                app:layout_constraintVertical_bias="1.0">
 
                 <TextView
                     android:id="@+id/new_word_refresh"
@@ -276,25 +264,12 @@
                     android:background="@drawable/bg_txt_new_words"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
+                    android:padding="5dp"
                     android:text="@string/trending"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_favorite_border"
-                    app:layout_constraintBottom_toBottomOf="@id/new_word_refresh"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/new_word_refresh"
-                    app:layout_constraintVertical_bias="0.666"
-                    app:tint="@color/black" />
 
                 <ListView
                     android:id="@+id/list_new_word"
