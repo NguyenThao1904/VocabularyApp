@@ -55,11 +55,15 @@ public class QuizActivity extends AppCompatActivity {
     private int score;
     private boolean answered;
 
+    private SoundPlayer sound;
+
     private long backPressedTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        sound = new SoundPlayer(this);
 
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/LuckiestGuyRegular.ttf");
         Typeface tf2 = Typeface.createFromAsset(getAssets(),"fonts/Baloo.ttf");
@@ -186,9 +190,10 @@ public class QuizActivity extends AppCompatActivity {
 
         textViewCountDown.setText(timeFormatted);
 
-        if (timeLeftInMillis <10000){
+        if (timeLeftInMillis <4000){
             textViewCountDown.setTextColor(Color.RED);
             //sound tic tok count down
+            sound.playCountdownTimeSound();
         }else {
             textViewCountDown.setTextColor(textColorDefaultCd);
         }
@@ -204,6 +209,10 @@ public class QuizActivity extends AppCompatActivity {
         if (answerNr == currentQuestion.getTrueCase()) {
             score++;
             textViewScore.setText("Score: " + score);
+            sound.playRightSound();
+        }
+        else {
+            sound.playWrongSound();
         }
         showSolution();
     }
