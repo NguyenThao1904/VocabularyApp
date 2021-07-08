@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:shape="rectangle" >-->
+
+<!--    <item>-->
+<!--        <shape>-->
+<!--            &lt;!&ndash; set the shadow color here &ndash;&gt;-->
+<!--            <stroke-->
+<!--                android:width="5dp"-->
+<!--                android:color="#7FBFEE" />-->
+
+<!--            &lt;!&ndash; setting the thickness of shadow (positive value will give shadow on that side) &ndash;&gt;-->
+
+<!--            <padding-->
+<!--                android:bottom="2dp"-->
+<!--                android:left="2dp"-->
+<!--                android:right="2dp"-->
+<!--                android:top="2dp" />-->
+
+<!--            <corners android:radius="10dp" />-->
+<!--        </shape>-->
+<!--    </item>-->
+
+<!--    &lt;!&ndash; Background &ndash;&gt;-->
+
+<!--    <item>-->
+<!--        <shape>-->
+<!--            <solid android:color="#fff" />-->
+<!--            <corners android:radius="30dp" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--</layer-list>-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:state_pressed="true">
+        <layer-list>
+            <item android:left="4dp" android:top="4dp">
+                <shape>
+                    <solid android:color="#35000000" />
+                    <corners android:radius="2dp"/>
+                </shape>
+            </item>
+            ...
+        </layer-list>
+    </item>-->
+    <item>
+        <layer-list>
+            <!-- SHADOW LAYER -->
+            <!--<item android:top="4dp" android:left="4dp">
+                <shape>
+                    <solid android:color="#35000000" />
+                    <corners android:radius="2dp" />
+                </shape>
+            </item>-->
+            <!-- SHADOW LAYER -->
+            <item>
+                <shape>
+                    <solid android:color="#35000000" />
+                    <corners android:radius="27dp" />
+                </shape>
+            </item>
+            <!-- CONTENT LAYER -->
+            <item android:bottom="3dp"
+                android:left="1dp"
+                android:right="3dp"
+                android:top="1dp">
+                <shape>
+                    <solid android:color="#ffffff" />
+                    <corners android:radius="25dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>
