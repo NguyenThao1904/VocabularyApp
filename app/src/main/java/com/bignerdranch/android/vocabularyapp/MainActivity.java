@@ -18,6 +18,7 @@ import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.SparseArray;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -222,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         listViewNewWord.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //get item's position and retrieve it from db
                 Object clickItemObject = parent.getAdapter().getItem(position);
                 SQLiteCursor c = (SQLiteCursor)clickItemObject;
                 String word= c.getString(c.getColumnIndex(DatabaseHelper.WORD));
@@ -263,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (requestCode){
             case 1:{
+                //allow user to draw over lays
                 if (requestCode==1){
                     if (!Settings.canDrawOverlays(MainActivity.this)){
                         Toast.makeText(this, "Permission denied by user", Toast.LENGTH_SHORT).show();
@@ -274,8 +277,22 @@ public class MainActivity extends AppCompatActivity {
                 if(resultCode == RESULT_OK && data != null){
                     //get text data from voice intent
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    final String word = result.get(0).toString();
                     //set to text view
-                    mEdtText.setText(result.get(0).toString());
+                    mEdtText.setText(word);
+                    mEdtText.setOnKeyListener(new View.OnKeyListener() {
+                        @Override
+                        public boolean onKey(View v, int keyCode, KeyEvent event) {
+                            // If the event is a key-down event on the "enter" button
+                            if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                                // Perform action on key press
+                                getDescription(word);
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
                 }
                 break;
             }
