@@ -5,19 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DisplayWordActivity"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="@drawable/bg_header">
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_action_backarrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
-            android:onClick="btnback"
+            android:onClick="onClickBtnBack"
+            android:src="@drawable/ic_action_backarrow"
             tools:ignore="OnClick" />
 
 
@@ -25,25 +26,29 @@
             android:id="@+id/txt_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="Search here"
             android:textSize="30sp"
-            android:layout_marginLeft="10dp"/>
+            android:textColor="@color/white"/>
 
-        <ImageView
-            android:id="@+id/btnsound"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
-            android:layout_marginRight="10dp"
+        <ImageButton
+            android:id="@+id/btn_sound"
+            android:layout_width="40sp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_action_sound" />
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_action_sound"
+            app:tint="@color/colorPrimary"
+            android:background="@drawable/search_icon_background"/>
 
-        <ImageView
-            android:id="@+id/btnsave"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
-            android:layout_marginRight="10dp"
+        <ImageButton
+            android:id="@+id/btn_book_mark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
+            app:tint="@color/colorPrimary"
+            android:background="@drawable/search_icon_background"
+            android:layout_marginRight="10dp"
             android:src="@drawable/ic_action_bookmark" />
 
     </LinearLayout>
@@ -52,7 +57,9 @@
         android:id="@+id/txt_ans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
         android:layout_marginTop="10dp"
+        android:padding="20dp"
         android:scrollbars="vertical"/>
 </LinearLayout>

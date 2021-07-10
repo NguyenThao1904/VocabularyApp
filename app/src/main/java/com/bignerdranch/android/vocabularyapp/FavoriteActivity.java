@@ -1,33 +1,25 @@
 package com.bignerdranch.android.vocabularyapp;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 
 import java.util.ArrayList;
 
-public class FavoriteActivity extends AppCompatActivity{
+public class FavoriteActivity extends AppCompatActivity {
 
-    AutoCompleteTextView mAutoCompleteTextView1;
-    AutoCompleteTextView mAutoCompleteTextView2;
+    AutoCompleteTextView mAutoTxtSearchFav;
     private ListView listViewFavWord;
     private ArrayList<Word> textAnswers;
     private DatabaseHelper mDatabaseHelper;
@@ -35,13 +27,14 @@ public class FavoriteActivity extends AppCompatActivity{
     private Button mBtnLearn;
     private Button mBtnGame;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
-        mAutoCompleteTextView1 = findViewById(R.id.searchAll);
-        mAutoCompleteTextView2 = findViewById(R.id.searchFav);
+        mAutoTxtSearchFav = findViewById(R.id.searchFav);
         listViewFavWord  = (ListView) findViewById(R.id.list_fav_word);
+
         mDatabaseHelper = new DatabaseHelper(this);
         textAnswers = mDatabaseHelper.getAllFavWord();
         dataAdapter = new WordAdapter(FavoriteActivity.this, textAnswers);
@@ -56,40 +49,8 @@ public class FavoriteActivity extends AppCompatActivity{
             }
         });
 
-        //search the whole vocabulary
-        mAutoCompleteTextView1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 1) {
-                    mAutoCompleteTextView1.setAdapter(new ArrayAdapter<String>(FavoriteActivity.this,
-                            android.R.layout.simple_list_item_1, mDatabaseHelper.getEngWord(s.toString())));
-
-                    mAutoCompleteTextView1.setThreshold(1);//chi can nhap 1 tu la se bat dau loc
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        mAutoCompleteTextView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String mWord = mList.get(position);
-                String mWord = (String) parent.getItemAtPosition(position);
-                getDescription(mWord);
-            }
-        });
-
-
         //Search the favorite word
-        mAutoCompleteTextView2.addTextChangedListener(new TextWatcher() {
+        mAutoTxtSearchFav.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -98,10 +59,8 @@ public class FavoriteActivity extends AppCompatActivity{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() == 1) {
-                    mAutoCompleteTextView2.setAdapter(new ArrayAdapter<String>(FavoriteActivity.this,
+                    mAutoTxtSearchFav.setAdapter(new ArrayAdapter<String>(FavoriteActivity.this,
                             android.R.layout.simple_list_item_1, mDatabaseHelper.getFavEngWord(s.toString())));
-
-                    mAutoCompleteTextView2.setThreshold(1);//chi can nhap 1 tu la se bat dau loc
                 }
             }
 
@@ -110,7 +69,7 @@ public class FavoriteActivity extends AppCompatActivity{
 
             }
         });
-        mAutoCompleteTextView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAutoTxtSearchFav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String mWord = (String) parent.getItemAtPosition(position);
@@ -143,7 +102,6 @@ public class FavoriteActivity extends AppCompatActivity{
     public void getDescription(String word) {
         Intent intent = new Intent(FavoriteActivity.this, DisplayWordActivity.class);
         intent.putExtra("word", word);
-        intent.putExtra("answer", mDatabaseHelper.getDescription(word));
         startActivity(intent);
     }
 }

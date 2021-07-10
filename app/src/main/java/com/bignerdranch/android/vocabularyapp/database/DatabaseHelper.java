@@ -108,13 +108,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<String> engList= new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         //truy vấn ra những từ gần giống theo từ mình search
-        Cursor cursor = sqLiteDatabase.query(
-                AV_TABLE,
-                new String[]{WORD},
-                WORD + " LIKE ?",
-                new String[]{query + "%"},
-                null, null,
-                WORD
+        Cursor cursor = sqLiteDatabase.rawQuery(
+//                AV_TABLE,
+//                new String[]{WORD},
+//                WORD + " LIKE ?",
+//                new String[]{"%" + query + "%"},
+//                null, null,
+//                WORD
+//                AV_TABLE,
+//                new String[]{WORD},
+//                WORD + " LIKE ?",
+//                new String[]{query + "%"},
+//                null, null,
+//                null
+                "SELECT word FROM av WHERE word LIKE '" + query + "%'", null
         );
         int index = cursor.getColumnIndex(WORD);
         while (cursor.moveToNext()){
@@ -129,18 +136,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Word displayWord(String word) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        Log.d(TAG, "getAns: " + word);
-        Word ans = null;
+        Word ans = new Word();
         String sql = "SELECT * FROM " + AV_TABLE + " WHERE word = '" + word + "'";
-        Log.d(TAG, "getAns: " + sql);
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             ans.setId(cursor.getInt(cursor.getColumnIndex("id")));
             ans.setHtml(cursor.getString(cursor.getColumnIndex("html")));
             ans.setWord(cursor.getString(cursor.getColumnIndex("word")));
-            ans.setPronounce(cursor.getString(cursor.getColumnIndex("pronounce")));
-            ans.setFav(cursor.getString(cursor.getColumnIndex("fav")));
-            ans.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+            String fav = cursor.getString(cursor.getColumnIndex("fav"));
+            if(fav.equals("TRUE")){
+                ans.setFav(true);
+            }else{
+                ans.setFav(false);
+            }
         }
         return ans;
     }
@@ -160,6 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Get all the whole favorite word
     public ArrayList<Word> getAllFavWord(){
         ArrayList<Word> favWordList = new ArrayList<>();
+       ;
         mDataBase = this.getReadableDatabase();
         try {
             Cursor cursor = mDataBase.rawQuery("SELECT * FROM av WHERE fav = 'TRUE'", null);
@@ -168,10 +177,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     Word word = new Word();
                     word.setId(cursor.getInt(cursor.getColumnIndex("id")));
                     word.setWord(cursor.getString(cursor.getColumnIndex("word")));
-                    word.setDescription(cursor.getString(cursor.getColumnIndex("description")));
                     word.setHtml(cursor.getString(cursor.getColumnIndex("html")));
-                    word.setPronounce(cursor.getString(cursor.getColumnIndex("pronounce")));
-                    word.setFav(cursor.getString(cursor.getColumnIndex("fav")));
+                    word.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+                    String fav = cursor.getString(cursor.getColumnIndex("fav"));
+                    if(fav.equals("TRUE")){
+                        word.setFav(true);
+                    }else{
+                        word.setFav(false);
+                    }
                     favWordList.add(word);
                 }while (cursor.moveToNext());
             }
@@ -196,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null);
     }
 
-    ////Get English FAVOTIRE words that like the input word
+    ////Get English FAVORITE words that like the input word
     public ArrayList<String> getFavEngWord(String query){
         ArrayList<String> engList= new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();

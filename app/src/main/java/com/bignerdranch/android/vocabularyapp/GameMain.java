@@ -11,7 +11,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -258,7 +257,7 @@ public class GameMain extends AppCompatActivity {
     }
     private void DialogBoss() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_boss);
+        dialog.setContentView(R.layout.dialog_game_finish);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bggameboss);
         showDialogGame(dialog);
     }

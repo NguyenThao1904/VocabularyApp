@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:background="@drawable/bg_header"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -25,64 +25,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.bignerdranch.android.vocabularyapp.SearchAllFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_rectangle_background"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_app_name">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/search_icon_background"
-                android:contentDescription="@string/app_name"
-                android:padding="6dp"
-                android:src="@drawable/ic_search"
-                app:tint="@color/colorPrimary" />
-
-            <EditText
-                android:id="@+id/edit_search"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/search_here"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
-
-                <ImageButton
-                    android:id="@+id/button_voice"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_icon_background"
-                    android:src="@drawable/ic_voice"
-                    app:tint="@color/colorPrimary" />
-
-                <ImageButton
-                    android:id="@+id/button_camera"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/search_icon_background"
-                    android:src="@drawable/ic_baseline_photo_camera_24"
-                    app:tint="@color/colorPrimary"/>
-
-                <ImageView
-                    android:id="@+id/imageIv"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="invisible"/>
-        </LinearLayout>
+            tools:ignore="MissingConstraints"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/tu_yeu_thich"
+                    android:text="@string/btn_fav_word"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -165,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/cua_so_nhanh"
+                    android:text="@string/btn_translate_quick"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -200,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/hoc_tu_vung"
+                    android:text="@string/btn_learn"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -235,7 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/game"
+                    android:text="@string/btn_game"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -249,7 +198,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_shadow"
                 android:elevation="6dp"
-                android:padding="20dp"
+                android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/layoutGame"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -265,7 +214,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:padding="5dp"
-                    android:text="@string/trending"
+                    android:text="@string/lv_new_words"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -275,6 +224,7 @@
                     android:id="@+id/list_new_word"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:divider="@color/black"
                     android:dividerHeight="1dp"
                     android:ellipsize="end"

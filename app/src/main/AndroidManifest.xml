@@ -2,27 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bignerdranch.android.vocabularyapp">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <!--    Camera and storage permission will be required-->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- Camera and storage permission will be required -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:label="@null"
         android:supportsRtl="true"
         android:theme="@style/Theme.VocabularyApp">
-
+        <activity android:name=".SearchAllFragment"></activity>
         <activity android:name=".GameMain" />
-        <activity android:name=".StartGameScreenActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".StartingScreenActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".FavoriteActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".QuizActivity"/>
-        <activity android:name=".FinishScreenActivity"/>
-        <activity android:name=".DisplayWordActivity"/>
+        <activity
+            android:name=".StartGameScreenActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".StartingScreenActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".FinishScreenActivity" />
+        <activity android:name=".DisplayWordActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,10 +33,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".FloatingWindow" android:enabled="true"/>
-        <!--        Add in application tag-->
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Theme.VocabularyApp"/> <!-- optional (needed if default theme has no action bar) -->
+        <service
+            android:name=".FloatingWindow"
+            android:enabled="true" /> <!-- Add in application tag -->
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Theme.VocabularyApp" />
     </application>
 
 </manifest>
