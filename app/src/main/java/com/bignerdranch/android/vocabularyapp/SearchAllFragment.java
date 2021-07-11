@@ -140,11 +140,11 @@ public class SearchAllFragment extends Fragment {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi speak something");
 
-        try {
+//        try {
             startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
-        }catch (Exception e){
-            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }
+//        }catch (Exception e){
+//            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+//        }
     }
 
     //Show dialog to select camera or gallery

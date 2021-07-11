@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +24,9 @@ import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDatabaseHelper;
-    private LinearLayout mLayoutFavorite, mLayoutGame, mLayoutLearn, mLayoutFloatingWindow;
+    private Button mButtonFavorite, mButtonGame, mButtonLearn, mButtonFloatingWindow;
     private SimpleCursorAdapter dataAdapter;
-    private TextView mNewWord;
+    private Button mNewWord;
     ListView listViewNewWord;
 
     @Override
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.createDataBase();
 
-        mLayoutGame = findViewById(R.id.layoutGame);
-        mLayoutGame.setOnClickListener(new View.OnClickListener() {
+        mButtonGame = findViewById(R.id.btn_game_main);
+        mButtonGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mDatabaseHelper.getAllFavWord().isEmpty()) {
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mLayoutLearn = findViewById(R.id.layoutLearn);
-        mLayoutLearn.setOnClickListener(new View.OnClickListener() {
+        mButtonLearn = findViewById(R.id.btn_learn_word);
+        mButtonLearn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, StartingScreenActivity.class);
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mLayoutFavorite = findViewById(R.id.layoutFavorite);
-        mLayoutFavorite.setOnClickListener(new View.OnClickListener() {
+        mButtonFavorite = findViewById(R.id.btn_fav_word);
+        mButtonFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, FavoriteActivity.class);
@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mLayoutFloatingWindow = findViewById(R.id.layoutLooking);
+        mButtonFloatingWindow = findViewById(R.id.btn_looking);
         getPermission();
-        mLayoutFloatingWindow.setOnClickListener(new View.OnClickListener() {
+        mButtonFloatingWindow.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {

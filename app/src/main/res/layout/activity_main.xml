@@ -38,8 +38,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:overScrollMode="never"
-        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader"
@@ -51,145 +49,81 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <LinearLayout
-                android:id="@+id/layoutFavorite"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="22dp"
-                android:background="@drawable/bg_shadow"
-                android:elevation="6dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toStartOf="@id/layoutLooking"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:contentDescription="@string/app_name"
-                    android:padding="8dp"
-                    android:src="@drawable/img_btn_fav" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_fav_word"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:drawableTop="@drawable/img_btn_fav"
+                    android:background="@drawable/bg_shadow"
                     android:text="@string/btn_fav_word"
+                    android:padding="10dp"
+                    android:elevation="5dp"
+                    android:textAllCaps="false"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintEnd_toStartOf="@id/btn_looking"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutLooking"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="22dp"
-                android:background="@drawable/bg_shadow"
-                android:elevation="6dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/layoutFavorite"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:contentDescription="@string/app_name"
-                    android:padding="8dp"
-                    android:src="@drawable/img_btn_looking" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_looking"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/btn_translate_quick"
+                    android:padding="10dp"
+                    android:drawableTop="@drawable/img_btn_looking"
+                    android:background="@drawable/bg_shadow"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_fav_word"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutLearn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_shadow"
-                android:elevation="6dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toStartOf="@id/layoutLooking"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutFavorite">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:contentDescription="@string/app_name"
-                    android:padding="8dp"
-                    android:src="@drawable/img_btn_learn" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_learn_word"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/btn_learn"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableTop="@drawable/img_btn_learn"
+                    android:background="@drawable/bg_shadow"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintEnd_toStartOf="@id/btn_looking"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_fav_word"/>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutGame"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="22dp"
-                android:background="@drawable/bg_shadow"
-                android:elevation="6dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/layoutFavorite"
-                app:layout_constraintTop_toBottomOf="@id/layoutLooking">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="8dp"
-                    android:contentDescription="@string/app_name"
-                    android:padding="8dp"
-                    android:src="@drawable/img_btn_game" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_game_main"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/btn_game"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:drawableTop="@drawable/img_btn_game"
+                    android:background="@drawable/bg_shadow"
                     android:textColor="#68A4D1"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btn_fav_word"
+                    app:layout_constraintTop_toBottomOf="@id/btn_looking" />
 
-            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
@@ -200,20 +134,19 @@
                 android:elevation="6dp"
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/layoutGame"
+                app:layout_constraintEnd_toEndOf="@id/btn_game_main"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/layoutFavorite"
-                app:layout_constraintTop_toBottomOf="@id/layoutLearn"
+                app:layout_constraintStart_toStartOf="@id/btn_fav_word"
+                app:layout_constraintTop_toBottomOf="@id/btn_learn_word"
                 app:layout_constraintVertical_bias="1.0">
 
-                <TextView
+                <Button
                     android:id="@+id/new_word_refresh"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="@drawable/bg_txt_new_words"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:padding="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:text="@string/lv_new_words"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -233,7 +166,6 @@
                     tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

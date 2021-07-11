@@ -10,6 +10,7 @@
     <application
         android:allowBackup="true"
         android:label="Vocabulary"
+        android:icon="@mipmap/ic_laucher_vocabulary"
         android:supportsRtl="true"
         android:theme="@style/Theme.VocabularyApp">
         <activity android:name=".SearchAllFragment"
