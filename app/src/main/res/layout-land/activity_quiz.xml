@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_learn_vocabulary"
+    android:padding="16dp"
+    tools:context=".QuizActivity">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/text_view_level"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/text_view_question_count"-->
+    <!--        android:freezesText="true"-->
+    <!--        android:text="Level: "-->
+    <!--        android:textColor="@android:color/black" />-->
+
+
+    <TextView
+        android:id="@+id/text_view_score"
+        android:layout_width="72dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginLeft="86dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginRight="108dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/bg_game_letter"
+        android:freezesText="true"
+        android:gravity="center"
+        android:text="Score: 0"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_question"
+        app:layout_constraintEnd_toStartOf="@+id/text_view_question_count"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_question_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_score"
+        android:layout_marginEnd="113dp"
+        android:layout_marginRight="113dp"
+        android:layout_marginBottom="39dp"
+        android:freezesText="true"
+        android:text="Question 1 of x"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/radio_group"
+        app:layout_constraintEnd_toStartOf="@+id/text_view_countdown"
+        app:layout_constraintStart_toEndOf="@+id/text_view_score" />
+
+    <TextView
+        android:id="@+id/text_view_question"
+        android:layout_width="258dp"
+        android:layout_height="197dp"
+        android:layout_above="@id/radio_group"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/bg_game_question"
+        android:freezesText="true"
+        android:gravity="center"
+        android:text="Here will be the question text\nHere will be the question text\nHere will be the question text"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/radio_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_score" />
+
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="73dp"
+        android:layout_height="42dp"
+        android:layout_above="@+id/text_view_question"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginBottom="57dp"
+        android:freezesText="true"
+        android:gravity="center"
+        android:text="00:30"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/radio_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_view_question_count"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="49dp"
+        android:layout_marginRight="49dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_confirm_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_view_question"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_countdown">
+
+        <RadioButton
+            android:id="@+id/radio_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_game"
+            android:freezesText="true"
+            android:text="Option 1"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="437dp"
+            tools:layout_editor_absoluteY="131dp" />
+
+        <RadioButton
+            android:id="@+id/radio_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn_game"
+            android:freezesText="true"
+            android:text="Option 2"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="437dp"
+            tools:layout_editor_absoluteY="190dp" />
+
+        <RadioButton
+            android:id="@+id/radio_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn_game"
+            android:freezesText="true"
+            android:text="Option 3"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="437dp"
+            tools:layout_editor_absoluteY="250dp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_confirm_next"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_group"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="75dp"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/confirmdesign"
+        android:freezesText="true"
+        android:text="Confirm"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_view_question"
+        app:layout_constraintTop_toBottomOf="@+id/radio_group" />
+</androidx.constraintlayout.widget.ConstraintLayout>
