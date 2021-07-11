@@ -43,7 +43,7 @@
             android:enabled="true" /> <!-- Add in application tag -->
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Theme.VocabularyApp" />
+            android:theme="@style/Theme.VocabularyApp"/> <!-- optional (needed if default theme has no action bar) -->
     </application>
 
 </manifest>

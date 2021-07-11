@@ -3,24 +3,36 @@ package com.bignerdranch.android.vocabularyapp;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
+import androidx.fragment.app.Fragment;
 
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDatabaseHelper;
@@ -28,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleCursorAdapter dataAdapter;
     private Button mNewWord;
     ListView listViewNewWord;
+    private ImageView mPreviewIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //hide actionBar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        mPreviewIv = findViewById(R.id.imageIv);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Jua-Regular.ttf");
         TextView mAppName = findViewById(R.id.text_app_name);
@@ -157,9 +171,23 @@ public class MainActivity extends AppCompatActivity {
     public void getPermission(){
         //check for alert windows permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)){
-            Intent intent= new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" +getPackageName()));
+            Intent intent= new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivityForResult(intent,1);
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if (requestCode == 1) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.canDrawOverlays(this)) {
+                        Toast.makeText(this, "Permission denied by user", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         }
     }
 }

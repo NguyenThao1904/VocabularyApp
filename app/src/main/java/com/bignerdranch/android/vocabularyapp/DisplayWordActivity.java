@@ -1,6 +1,5 @@
 package com.bignerdranch.android.vocabularyapp;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -41,7 +40,7 @@ public class DisplayWordActivity extends AppCompatActivity {
         mTxtWord = (TextView) findViewById(R.id.txt_word);
         mTxtAns = (TextView) findViewById(R.id.txt_ans);
 
-//        mTxtAns.setMovementMethod(new ScrollingMovementMethod());
+        mTxtAns.setMovementMethod(new ScrollingMovementMethod());
 
         //get word, html, fav by word
         mWord = mDatabaseHelper.displayWord(getIntent().getStringExtra("word"));

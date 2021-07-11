@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,17 +141,15 @@ public class SearchAllFragment extends Fragment {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.UK);
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi speak something");
 
-//        try {
+        try {
             startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
-//        }catch (Exception e){
-//            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
-//        }
+        }catch (Exception e){
+            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 
     //Show dialog to select camera or gallery
     private void showImageImportDialog() {
-//        //items to display in dialog
-//        String[] items = {"Camera", "Gallery"};
         Dialog dialogCamera = new Dialog(getContext());
         dialogCamera.setContentView(R.layout.dialog_choose_camera);
         dialogCamera.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_choose_camera);
@@ -171,8 +170,6 @@ public class SearchAllFragment extends Fragment {
                 dialogCamera.dismiss();
             }
         });
-
-        TextView mTxtTitle = (TextView) dialogCamera.findViewById(R.id.dialog_txt_title);
 
         mDialogBtnGallery = (Button) dialogCamera.findViewById(R.id.btn_gallery);
         mDialogBtnGallery.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +237,8 @@ public class SearchAllFragment extends Fragment {
         startActivity(intent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -250,38 +248,31 @@ public class SearchAllFragment extends Fragment {
                 //got image from gallery now crop it
                 CropImage.activity(data.getData())
                         .setGuidelines(CropImageView.Guidelines.ON) //enable image guidelines
-                        .start(getActivity());
+                        .start(getContext(), SearchAllFragment.this);
             }
+
             if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 //got image from camera now crop it
                 CropImage.activity(image_uri)
                         .setGuidelines(CropImageView.Guidelines.ON) //enable image guidelines
-                        .start(getActivity());
+                        .start(getContext(), SearchAllFragment.this);
             }
         }
 
-        switch (requestCode){
-            case 1:{
-                if (requestCode==1){
-                    if (!Settings.canDrawOverlays(getContext())){
-                        Toast.makeText(getContext(), "Permission denied by user", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                break;
-            }
+        switch (requestCode) {
             //case voice to text
-            case REQUEST_CODE_SPEECH_INPUT:{
-                if(resultCode == RESULT_OK && data != null){
+            case REQUEST_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && data != null) {
                     //get text data from voice intent
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     //set to text view
-//                    mAutoTxtSearchAll.setText(result.get(0).toString());
                     getDescription(result.get(0));
                 }
                 break;
             }
+
             //get cropped image
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:{
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE: {
                 CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 if (resultCode == RESULT_OK) {
                     Uri resultUri = result.getUri(); //get image uri
@@ -289,7 +280,7 @@ public class SearchAllFragment extends Fragment {
                     mPreviewIv.setImageURI(resultUri);
 
                     //get drawable bitmap for text recognition
-                    BitmapDrawable bitmapDrawable= (BitmapDrawable) mPreviewIv.getDrawable();
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) mPreviewIv.getDrawable();
                     Bitmap bitmap = bitmapDrawable.getBitmap();
 
                     TextRecognizer textRecognizer = new TextRecognizer.Builder(getActivity().getApplicationContext()).build();
@@ -303,10 +294,9 @@ public class SearchAllFragment extends Fragment {
                         for (int i = 0; i < items.size(); i++) {
                             TextBlock myItem = items.valueAt(i);
                             sb.append(myItem.getValue());
-                            sb.append("\n");
                         }
-                        //set text to edit text
-                        mAutoTxtSearchAll.setText(sb.toString());
+                        //call displayWord by text
+                        getDescription(sb.toString());
                     }
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     //if there any error show it
@@ -314,6 +304,7 @@ public class SearchAllFragment extends Fragment {
                     Toast.makeText(getContext(), "" + error, Toast.LENGTH_SHORT).show();
                 }
             }
+            break;
         }
     }
 }
