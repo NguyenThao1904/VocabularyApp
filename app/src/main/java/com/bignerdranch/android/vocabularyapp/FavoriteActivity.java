@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
@@ -31,6 +32,9 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mAutoTxtSearchFav = findViewById(R.id.searchFav);
         listViewFavWord  = (ListView) findViewById(R.id.list_fav_word);

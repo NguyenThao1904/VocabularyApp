@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
@@ -62,6 +63,10 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        //hide actionBar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         sound = new SoundPlayer(this);
 

@@ -1,5 +1,6 @@
 package com.bignerdranch.android.vocabularyapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -24,6 +25,10 @@ public class StartGameScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game_screen);
+
+        //hide actionBar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         mGo = (Button) findViewById(R.id.button_go);
         mGo.setOnClickListener(new View.OnClickListener() {

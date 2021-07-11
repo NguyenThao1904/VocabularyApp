@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
@@ -31,6 +32,10 @@ public class DisplayWordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_word);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         mDatabaseHelper = new DatabaseHelper(this);
 
         mTxtWord = (TextView) findViewById(R.id.txt_word);

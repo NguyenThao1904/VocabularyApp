@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //hide actionBar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Jua-Regular.ttf");
         TextView mAppName = findViewById(R.id.text_app_name);
