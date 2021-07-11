@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bignerdranch.android.vocabularyapp">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- Camera and storage permission will be required -->
@@ -8,11 +9,12 @@
 
     <application
         android:allowBackup="true"
-        android:label="@null"
+        android:label="Vocabulary"
         android:supportsRtl="true"
         android:theme="@style/Theme.VocabularyApp">
-        <activity android:name=".SearchAllFragment"></activity>
-        <activity android:name=".GameMain" />
+        <activity android:name=".SearchAllFragment"
+            tools:ignore="Instantiatable"></activity>
+        <activity android:name=".GameMain"/>
         <activity
             android:name=".StartGameScreenActivity"
             android:parentActivityName=".MainActivity" />
@@ -25,7 +27,9 @@
         <activity android:name=".QuizActivity" />
         <activity android:name=".FinishScreenActivity" />
         <activity android:name=".DisplayWordActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+
+            android:theme="@style/Theme.VocabularyApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

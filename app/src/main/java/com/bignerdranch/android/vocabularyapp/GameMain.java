@@ -1,6 +1,7 @@
 package com.bignerdranch.android.vocabularyapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -60,6 +60,11 @@ public class GameMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main);
+
+        //hide actionBar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
         textAnswers = new ArrayList<>();
@@ -77,7 +82,6 @@ public class GameMain extends AppCompatActivity {
         }
 
         mScore = findViewById(R.id.text_score);
-        Log.d("TAG", "score: "+ score);
         mScore.setText(getString(R.string.text_score, score));
 
         mAnimation = AnimationUtils.loadAnimation(this, R.anim.smallbigforth);
@@ -156,9 +160,6 @@ public class GameMain extends AppCompatActivity {
 
         textView.setOnClickListener((v -> {
             if(presCounter < maxPresCounter){
-//                    if(presCounter == 0) {
-//                        editText.setText("");
-//                    }
 
                 editText.setText(editText.getText().toString() + text);
                 for(int i = 0; i < keys.size(); i++){
@@ -258,14 +259,14 @@ public class GameMain extends AppCompatActivity {
     private void DialogBoss() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_game_finish);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bggameboss);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_game_boss);
         showDialogGame(dialog);
     }
 
     private void DialogGameOver() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_game_over);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bggameover);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_game_over);
         showDialogGame(dialog);
     }
 

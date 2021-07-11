@@ -1,8 +1,8 @@
 package com.bignerdranch.android.vocabularyapp;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -22,13 +22,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -51,6 +52,8 @@ public class SearchAllFragment extends Fragment {
     private DatabaseHelper mDatabaseHelper;
     private ImageButton mButtonVoice;
     private ImageButton mBtnCamera;
+    Button mDialogBtnCamera;
+    Button mDialogBtnGallery;
     ImageView mPreviewIv;
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 2;
@@ -146,39 +149,46 @@ public class SearchAllFragment extends Fragment {
 
     //Show dialog to select camera or gallery
     private void showImageImportDialog() {
-        //items to display in dialog
-        String[] items = {"Camera", "Gallery"};
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+//        //items to display in dialog
+//        String[] items = {"Camera", "Gallery"};
+        Dialog dialogCamera = new Dialog(getContext());
+        dialogCamera.setContentView(R.layout.dialog_choose_camera);
+        dialogCamera.getWindow().setBackgroundDrawableResource(R.drawable.dialog_bg_choose_camera);
+        dialogCamera.show();
 
-        //set title
-        dialog.setTitle("Select image");
-        dialog.setItems(items, new DialogInterface.OnClickListener() {
+        mDialogBtnCamera = (Button) dialogCamera.findViewById(R.id.btn_camera);
+        mDialogBtnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    //camera option click
-                    if(!checkCameraPermission()){
-                        //camera permission not allowed, request it
-                        requestCameraPermission();
-                    }else{
-                        //permission allowed, take picture
-                        pickCamera();
-                    }
+            public void onClick(View v) {
+                //camera option click
+                if(!checkCameraPermission()){
+                    //camera permission not allowed, request it
+                    requestCameraPermission();
+                }else{
+                    //permission allowed, take picture
+                    pickCamera();
                 }
-
-                if (which == 1) {
-                    //gallery option click
-                    if(!checkStoragePermission()){
-                        //storage permission not allowed, request it
-                        requestStoragePermission();
-                    }else{
-                        //permission allowed, take picture
-                        pickGallery();
-                    }
-                }
+                dialogCamera.dismiss();
             }
         });
-        dialog.create().show();
+
+        TextView mTxtTitle = (TextView) dialogCamera.findViewById(R.id.dialog_txt_title);
+
+        mDialogBtnGallery = (Button) dialogCamera.findViewById(R.id.btn_gallery);
+        mDialogBtnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //gallery option click
+                if(!checkStoragePermission()){
+                    //storage permission not allowed, request it
+                    requestStoragePermission();
+                }else{
+                    //permission allowed, take picture
+                    pickGallery();
+                }
+                dialogCamera.dismiss();
+            }
+        });
     }
 
     private void pickGallery() {

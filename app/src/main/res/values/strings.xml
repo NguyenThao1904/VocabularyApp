@@ -11,4 +11,7 @@
     <string name="text_high_score">High score: %d</string>
     <string name="search_all">Tra từ Anh Việt</string>
     <string name="search_fav">Tìm từ yêu thích</string>
+    <string name="title_dialog_camera">Select image</string>
+    <string name="btn_dialog_camera">Camera</string>
+    <string name="btn_dialog_gallery">Gallery</string>
 </resources>
