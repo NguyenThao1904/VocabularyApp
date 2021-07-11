@@ -195,7 +195,7 @@ public class QuizActivity extends AppCompatActivity {
 
         textViewCountDown.setText(timeFormatted);
 
-        if (timeLeftInMillis <4000){
+        if (timeLeftInMillis <10000){
             textViewCountDown.setTextColor(Color.RED);
             //sound tic tok count down
             sound.playCountdownTimeSound();
