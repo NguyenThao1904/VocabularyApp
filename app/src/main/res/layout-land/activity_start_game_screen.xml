@@ -11,9 +11,8 @@
 
     <ImageView
         android:id="@+id/image_boss"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:src="@drawable/logo_game"/>
 
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="28sp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:text="Are You Ready?" />
 
@@ -33,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/text_ready_game"
-        android:layout_marginTop="32dp"
         android:text="High score : 0"
+        android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -43,8 +42,8 @@
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
         android:background="@drawable/bg_btn_game"
+        android:layout_marginTop="10dp"
         android:text="Go"
         android:textAllCaps="false"
         android:textColor="@color/colorPurple"

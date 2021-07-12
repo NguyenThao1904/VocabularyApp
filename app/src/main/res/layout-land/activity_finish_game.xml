@@ -21,7 +21,7 @@
         android:layout_width="136dp"
         android:layout_height="111dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_below="@+id/text_view_congra"
         android:src="@drawable/logo_looking" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_marginLeft="164dp"
-        android:layout_marginTop="210dp"
+        android:layout_below="@+id/imageView"
         android:text="Your score:"
         android:textColor="@color/white"
         android:textSize="23sp" />
@@ -42,8 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_score"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="22dp"
         android:text="High Score : 0"
         android:textColor="@color/white"
         android:textSize="25sp" />
@@ -67,6 +65,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_btn_game"
         android:text="HOME"
+        android:textColor="@color/black"
         android:textSize="30sp"/>
 
 

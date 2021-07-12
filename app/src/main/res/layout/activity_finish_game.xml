@@ -67,6 +67,7 @@
         android:layout_marginTop="80dp"
         android:background="@drawable/bg_btn_game"
         android:text="HOME"
+        android:textColor="@color/black"
         android:textSize="30sp"/>
 
 

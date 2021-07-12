@@ -14,9 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:gravity="center"
         android:text="Awesome Quiz"
         android:textColor="@color/white"
-        android:textSize="50sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/text_view_highscore"
@@ -36,7 +37,8 @@
         android:layout_centerInParent="true"
         android:background="@drawable/bg_btn_game"
         android:text="Start Quiz"
-        android:textSize="40sp" />
+        android:textColor="@color/black"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/text_view_level"
