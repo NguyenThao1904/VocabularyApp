@@ -181,11 +181,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            if (requestCode == 1) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!Settings.canDrawOverlays(this)) {
-                        Toast.makeText(this, "Permission denied by user", Toast.LENGTH_SHORT).show();
-                    }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(this)) {
+                    Toast.makeText(this, "Permission denied by user", Toast.LENGTH_SHORT).show();
                 }
             }
         }

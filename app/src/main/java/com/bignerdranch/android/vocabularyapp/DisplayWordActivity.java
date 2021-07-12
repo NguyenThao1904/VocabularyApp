@@ -23,6 +23,7 @@ public class DisplayWordActivity extends AppCompatActivity {
     private ImageView mBtnBookMark, mBtnSound;
     private DatabaseHelper mDatabaseHelper;
     private Word mWord;
+    private WordAdapter dataAdapter;
 
     TextToSpeech mTextToSpeech;
 

@@ -56,7 +56,9 @@ public class SearchAllFragment extends Fragment {
     Button mDialogBtnCamera;
     Button mDialogBtnGallery;
     ImageView mPreviewIv;
+    private WordAdapter dataAdapter;
 
+    private static final int REQUEST_CODE_CHANGED_STATUS = 10;
     private static final int REQUEST_CODE_SPEECH_INPUT = 2;
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 400;
@@ -305,6 +307,12 @@ public class SearchAllFragment extends Fragment {
                 }
             }
             break;
+
+            case REQUEST_CODE_CHANGED_STATUS:{
+                Intent i = new Intent(getActivity(), FavoriteActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +21,8 @@ import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_CHANGED_STATUS = 10;
 
     AutoCompleteTextView mAutoTxtSearchFav;
     private ListView listViewFavWord;
@@ -50,6 +54,10 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getDescription(textAnswers.get(position).getWord());
+                dataAdapter = new WordAdapter(FavoriteActivity.this, textAnswers);
+
+                // Assign adapter to ListView
+                listViewFavWord.setAdapter(dataAdapter);
             }
         });
 
@@ -107,5 +115,14 @@ public class FavoriteActivity extends AppCompatActivity {
         Intent intent = new Intent(FavoriteActivity.this, DisplayWordActivity.class);
         intent.putExtra("word", word);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        textAnswers = mDatabaseHelper.getAllFavWord();
+        dataAdapter = new WordAdapter(FavoriteActivity.this, textAnswers);
+        // Assign adapter to ListView
+        listViewFavWord.setAdapter(dataAdapter);
     }
 }
