@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
+import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
@@ -27,6 +28,7 @@ import androidx.annotation.Nullable;
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class FloatingWindow extends Service implements View.OnClickListener{
 
@@ -36,12 +38,14 @@ public class FloatingWindow extends Service implements View.OnClickListener{
     ImageView imageClose;
     AutoCompleteTextView mAutoCompleteTextView;
     TextView mAns;
+    private ImageView mBtnSound;
     private View layoutcollapsed_widget;
     private View layoutexpanded_widget;
     float height, width;
     private DatabaseHelper mDatabaseHelper;
     ArrayList<String> mList;
     String ans;
+    TextToSpeech mTextToSpeech;
 
     @Nullable
     @Override
@@ -115,6 +119,10 @@ public class FloatingWindow extends Service implements View.OnClickListener{
         //TextView _ show description
         mAns = mFloatingView.findViewById(R.id.txt_ans);
         mAns.setMovementMethod(new ScrollingMovementMethod());
+        //Handle sound of word
+        mBtnSound = mFloatingView.findViewById(R.id.btn_sound);
+        mBtnSound.setVisibility(View.GONE);
+
 
         mAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -143,6 +151,17 @@ public class FloatingWindow extends Service implements View.OnClickListener{
                 String mWord = (String) parent.getItemAtPosition(position);
                 ans = mDatabaseHelper.getDescription(mWord);
                 mAns.setText(ans);
+                mBtnSound.setVisibility(View.VISIBLE);
+                mBtnSound.setOnClickListener(v ->
+                        mTextToSpeech = new TextToSpeech(getApplicationContext(), status -> {
+                            if(status == TextToSpeech.SUCCESS){
+                                //Setting language
+                                mTextToSpeech.setLanguage(Locale.UK);
+                                mTextToSpeech.setSpeechRate(1.0f);
+                                mTextToSpeech.speak(mWord, TextToSpeech.QUEUE_ADD, null);
+                            }
+                        }));
+
                 WindowManager.LayoutParams floatWindowLayoutParamUpdateFlag = layoutParams;
                 floatWindowLayoutParamUpdateFlag.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 
