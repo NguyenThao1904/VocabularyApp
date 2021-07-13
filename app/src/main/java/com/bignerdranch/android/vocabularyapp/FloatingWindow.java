@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.bignerdranch.android.vocabularyapp.database.DatabaseHelper;
 
@@ -38,7 +39,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
     ImageView imageClose;
     AutoCompleteTextView mAutoCompleteTextView;
     TextView mAns;
-    private ImageView mBtnSound;
+    private ImageView mBtnBookMark,mBtnSound;
     private View layoutcollapsed_widget;
     private View layoutexpanded_widget;
     float height, width;
@@ -67,6 +68,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.createDataBase();
         mList = new ArrayList<>();
+
 
         //inflate widget layout
         mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating, null);
@@ -146,10 +148,11 @@ public class FloatingWindow extends Service implements View.OnClickListener{
         });
 
         mAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String mWord = (String) parent.getItemAtPosition(position);
-                ans = mDatabaseHelper.getDescription(mWord);
+                String word = (String) parent.getItemAtPosition(position);
+                ans = mDatabaseHelper.getDescription(word);
                 mAns.setText(ans);
                 mBtnSound.setVisibility(View.VISIBLE);
                 mBtnSound.setOnClickListener(v ->
@@ -158,7 +161,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
                                 //Setting language
                                 mTextToSpeech.setLanguage(Locale.UK);
                                 mTextToSpeech.setSpeechRate(1.0f);
-                                mTextToSpeech.speak(mWord, TextToSpeech.QUEUE_ADD, null);
+                                mTextToSpeech.speak(word, TextToSpeech.QUEUE_ADD, null);
                             }
                         }));
 
@@ -284,5 +287,4 @@ public class FloatingWindow extends Service implements View.OnClickListener{
             layoutexpanded_widget.setVisibility(View.GONE);
         }
     }
-
 }
