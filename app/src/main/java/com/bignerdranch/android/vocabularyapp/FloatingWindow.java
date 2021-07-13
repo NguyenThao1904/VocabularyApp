@@ -228,7 +228,7 @@ public class FloatingWindow extends Service implements View.OnClickListener{
 
                         return true;
 
-                        //Nhấc cái tay mày lên
+                        
                     case MotionEvent.ACTION_UP:
 
                         //when the drag is ended switching the state of the widget
