@@ -53,7 +53,8 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_action_backarrow" />
+                    android:src="@drawable/ic_action_backarrow"
+                    app:tint="#939292" />
 
                 <AutoCompleteTextView
                     android:id="@+id/auto_txt"

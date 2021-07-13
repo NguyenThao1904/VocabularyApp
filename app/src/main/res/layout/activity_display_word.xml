@@ -20,7 +20,8 @@
             android:layout_gravity="center"
             android:onClick="onClickBtnBack"
             android:src="@drawable/ic_action_backarrow"
-            tools:ignore="OnClick" />
+            tools:ignore="OnClick"
+            app:tint="@color/white" />
 
 
         <TextView
